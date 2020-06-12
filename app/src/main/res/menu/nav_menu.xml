@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_tunggu"
+            android:icon="@drawable/ic_tunggu"
+            android:title="Daftar Tunggu"/>
+        <item
+            android:id="@+id/nav_paket"
+            android:icon="@drawable/ic_paket"
+            android:title="Titip Paket"/>
+        <item
+            android:id="@+id/nav_pantau"
+            android:icon="@drawable/ic_tamu"
+            android:title="Pantau Tamu"/>
+    </group>
+
+
+<!--    <item android:title="Account Settings">-->
+<!--            <item-->
+<!--                android:id="@+id/nav_logout"-->
+<!--                android:icon="@drawable/ic_logout"-->
+<!--                android:title="Sign Out"/>-->
+<!--    </item>-->
+</menu>

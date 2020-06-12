@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:theme="@style/TransparentTheme"
+    tools:context=".IdentitasActivity">
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/back"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_arrow_back_black_24dp"-->
+<!--                android:contentDescription="back"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Keluar"/>-->
+<!--        </RelativeLayout>-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--            <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical">-->
+        <!--                &lt;!&ndash;        <ImageView&ndash;&gt;-->
+        <!--                &lt;!&ndash;            android:src="@drawable/scan_template"&ndash;&gt;-->
+        <!--                &lt;!&ndash;            android:layout_width="250dp"&ndash;&gt;-->
+        <!--                &lt;!&ndash;            android:layout_marginBottom="12dp"&ndash;&gt;-->
+        <!--                &lt;!&ndash;            android:layout_height="100dp"/>&ndash;&gt;-->
+        <!--            </LinearLayout>-->
+        <!--        <Button-->
+        <!--            android:id="@+id/simpan"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:minWidth="200dp"-->
+        <!--            android:background="@drawable/selector_button"-->
+        <!--            android:text="Simpan"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:layout_marginBottom="24dp"-->
+        <!--            android:textColor="#ffffff" />-->
+<!--        <com.camerakit.CameraKitView-->
+<!--            android:id="@+id/camera"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:keepScreenOn="true"-->
+<!--            app:camera_facing="back"-->
+<!--            app:camera_flash="off"-->
+<!--            app:camera_focus="continuous"-->
+<!--            />-->
+
+        <com.otaliastudios.cameraview.CameraView
+            android:id="@+id/camera"
+            app:cameraPictureSizeMaxWidth="1600"
+            app:cameraPictureSizeMinWidth="1000"
+            app:cameraPictureSizeMinHeight="600"
+            app:cameraPictureSizeMaxHeight="1200"
+            app:cameraGestureTap="autoFocus"
+            android:keepScreenOn="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+<!--            <ImageView-->
+<!--                android:id="@+id/frame"-->
+<!--                android:layout_width="400dp"-->
+<!--                android:layout_height="250dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:src=""-->
+<!--                app:layout_drawOnPreview="true"-->
+<!--                app:layout_drawOnPictureSnapshot="true" />-->
+<!--        </com.otaliastudios.cameraview.CameraView>-->
+
+
+        <TextView
+            android:id="@+id/judul"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Masuk"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"/>
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_arrow_back_white_24dp" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/title"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="12dp"-->
+        <!--            android:layout_centerInParent="true"-->
+        <!--            android:textColor="@android:color/black"-->
+        <!--            android:text="Barcode Pengunjung"-->
+        <!--            android:layout_marginBottom="12dp"-->
+        <!--            android:textSize="30sp"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/judul"
+            android:layout_marginTop="72dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:text="Posisikan identitas pengunjung pada kotak" />
+        <Button
+            android:id="@+id/simpan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:background="@drawable/selector_button"
+            android:text="Simpan"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:textAllCaps="false"
+            android:layout_marginBottom="48dp"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+</RelativeLayout>
