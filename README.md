@@ -12,6 +12,8 @@ Library yang digunakan :
 * CameraView
 * Hdodenhof CircleImageView
 
-Copyright
+&copy; Copyright 2020
+
 Code : Riky Saepuloh
+
 Layout Design : Khoirul Afnan
