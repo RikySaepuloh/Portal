@@ -11,3 +11,7 @@ Library yang digunakan :
 * CodeScanner (budiyev - GitHub)
 * CameraView
 * Hdodenhof CircleImageView
+
+Copyright
+Code : Riky Saepuloh
+Layout Design : Khoirul Afnan
