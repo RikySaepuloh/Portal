@@ -23,7 +23,7 @@ V2 : User login menggunakan barcode (Non-API)
      
      Perubahan alur layout menjadi lebih user-friendly
 
-___
+## Developer
 
 *Code : Riky Saepuloh*
 
