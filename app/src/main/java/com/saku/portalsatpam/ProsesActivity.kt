@@ -23,9 +23,9 @@ class ProsesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_proses)
         setSupportActionBar(toolbar)
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             super.onBackPressed() }
-        adapter = PenghuniAdapter(penghuni,gambar)
+        adapter = PenghuniAdapter(penghuni,gambar,"")
         recyclerview.layoutManager = GridLayoutManager(this,4)
         recyclerview.adapter = adapter
     }

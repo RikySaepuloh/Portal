@@ -1,7 +1,6 @@
 package com.saku.portalsatpam.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.saku.portalsatpam.IdentitasActivity
 import com.saku.portalsatpam.R
 import com.saku.portalsatpam.models.ModelTunggu
-import com.saku.portalsatpam.vibrate
 
 class TungguAdapter(private val data: ArrayList<ModelTunggu>) : RecyclerView.Adapter<TungguAdapter.NamaKelompokViewHolder>() {
     private var ctx: Context? = null
@@ -30,7 +27,7 @@ class TungguAdapter(private val data: ArrayList<ModelTunggu>) : RecyclerView.Ada
         holder.tujuan.text = data[position].tujuan
         holder.penghuni.text = data[position].penghuni
         holder.card.setOnClickListener {
-            ctx?.vibrate(longArrayOf(0, 350))
+//            ctx?.//vibrate(longArrayOf(0, 350))
             Toast.makeText(ctx!!,"Sentuh icon search diatas untuk memunculkan Menu",Toast.LENGTH_LONG).show()
 //            val intent = Intent(ctx, IdentitasActivity::class.java)
 //            ctx?.startActivity(intent)

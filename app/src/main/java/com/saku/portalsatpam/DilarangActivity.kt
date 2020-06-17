@@ -11,7 +11,7 @@ class DilarangActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dilarang)
         simpan.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finishAffinity()

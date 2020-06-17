@@ -33,7 +33,7 @@ class TungguActivity : AppCompatActivity() {
         behaviorTunggu = BottomSheetBehavior.from(bottom_sheet_tunggu)
         behaviorKonfirmasi = BottomSheetBehavior.from(bottom_sheet_konfirmasi)
         search.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behaviorTunggu.state != BottomSheetBehavior.STATE_EXPANDED){
                 behaviorTunggu.state = BottomSheetBehavior.STATE_EXPANDED
                 overlay.visibility = View.VISIBLE
@@ -44,20 +44,20 @@ class TungguActivity : AppCompatActivity() {
         }
 
         lanjut.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this@TungguActivity,IdentitasActivity::class.java)
             startActivity(intent)
         }
 
         proses.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this@TungguActivity,BatalActivity::class.java)
             startActivity(intent)
             finishAffinity()
         }
 
         pergi.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behaviorKonfirmasi.state != BottomSheetBehavior.STATE_EXPANDED){
                 behaviorKonfirmasi.state = BottomSheetBehavior.STATE_EXPANDED
                 behaviorTunggu.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -69,7 +69,7 @@ class TungguActivity : AppCompatActivity() {
         }
 
         batal.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behaviorTunggu.state != BottomSheetBehavior.STATE_EXPANDED){
                 behaviorTunggu.state = BottomSheetBehavior.STATE_EXPANDED
                 behaviorKonfirmasi.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -135,7 +135,7 @@ class TungguActivity : AppCompatActivity() {
 
 
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             super.onBackPressed()
         }
 

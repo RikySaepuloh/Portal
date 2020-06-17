@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -23,13 +22,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
     menu_masuk.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
-            val intent = Intent(this,MenuActivity::class.java)
+            //vibrate(longArrayOf(0, 350))
+            val intent = Intent(this,NeinActivity::class.java)
 //            intent.putExtra("menu","empty")
             startActivity(intent)
         }
         menu_keluar.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this,KeluarActivity::class.java)
             startActivity(intent)
         }
@@ -44,8 +43,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
         nav_logout.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
-            val intent = Intent(this,LoginActivity::class.java)
+            //vibrate(longArrayOf(0, 350))
+            val intent = Intent(this,LoginScanActivity::class.java)
             startActivity(intent)
             finishAffinity()
         }

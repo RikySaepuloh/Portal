@@ -6,23 +6,32 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.common.util.DeviceProperties.isTablet
+import com.budiyev.android.codescanner.AutoFocusMode
+import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.DecodeCallback
+import com.budiyev.android.codescanner.ErrorCallback
+import com.budiyev.android.codescanner.ScanMode
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login_scan.*
 
 
 class LoginActivity : AppCompatActivity() {
-    val MY_PERMISSION_REQUEST = 100
-    val permissions = arrayOf(
+    private val permissionRequest = 100
+    private val permissions = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA,
         Manifest.permission.RECORD_AUDIO
     )
+    private lateinit var codeScanner: CodeScanner
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -30,11 +39,11 @@ class LoginActivity : AppCompatActivity() {
             if(arePermissionsEnabled()){
 //          permissions granted, continue flow normally
             }else{
-                requestMultiplePermissions();
+                requestMultiplePermissions()
             }
         }
         login.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+//            vibrate(longArrayOf(0, 350))
 //            val tabletSize = resources.getBoolean(R.bool.isTablet)
 //            if (!tabletSize) {
 //                // do something
@@ -42,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 //                Toast.makeText(this,"Gunakan Tab (Device) agar aplikasi dapat berjalan dengan baik",Toast.LENGTH_LONG).show()
 //                // do something else
 //            }
-            val intent = Intent(this@LoginActivity,MainActivity::class.java)
+            val intent = Intent(this@LoginActivity,LoginScanActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -56,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
                 remainingPermissions.add(permission)
             }
         }
-        requestPermissions(remainingPermissions.toTypedArray(), MY_PERMISSION_REQUEST)
+        requestPermissions(remainingPermissions.toTypedArray(), permissionRequest)
     }
 
 
@@ -75,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == MY_PERMISSION_REQUEST) {
+        if (requestCode == permissionRequest) {
             for (i in grantResults.indices) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     if (shouldShowRequestPermissionRationale(permissions[i]!!)) {

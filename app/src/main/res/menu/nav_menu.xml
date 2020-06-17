@@ -7,11 +7,11 @@
             android:title="Daftar Tunggu"/>
         <item
             android:id="@+id/nav_paket"
-            android:icon="@drawable/ic_paket"
+            android:icon="@drawable/ic_menu_paket"
             android:title="Titip Paket"/>
         <item
             android:id="@+id/nav_pantau"
-            android:icon="@drawable/ic_tamu"
+            android:icon="@drawable/ic_menu_tamu"
             android:title="Pantau Tamu"/>
     </group>
 

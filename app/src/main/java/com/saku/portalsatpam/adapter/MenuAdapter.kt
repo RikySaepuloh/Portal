@@ -24,7 +24,7 @@ class MenuAdapter(private val menus: ArrayList<String>) : RecyclerView.Adapter<M
     override fun onBindViewHolder(holder: NamaKelompokViewHolder, position: Int) {
         holder.menu.text = menus[position]
         holder.menu.setOnClickListener {
-            ctx?.vibrate(longArrayOf(0, 350))
+            //ctx?.//vibrate(longArrayOf(0, 350))
             val intent = Intent(ctx, KeperluanActivity::class.java)
             intent.putExtra("menu",menus[position])
             ctx?.startActivity(intent)

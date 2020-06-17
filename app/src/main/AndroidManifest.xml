@@ -69,7 +69,10 @@
             android:name=".KeluarActivity"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
-<!--        HERE-->
+        <activity
+            android:name=".LoginScanActivity"
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="landscape"
@@ -87,6 +90,10 @@
         <activity android:name=".TambahPaketActivity"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".NeinActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

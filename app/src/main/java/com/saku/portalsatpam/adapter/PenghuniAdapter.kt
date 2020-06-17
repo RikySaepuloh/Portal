@@ -2,20 +2,22 @@ package com.saku.portalsatpam.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.saku.portalsatpam.IdentitasActivity
 import com.saku.portalsatpam.R
 import com.saku.portalsatpam.vibrate
 
-class PenghuniAdapter(private val menus: ArrayList<String>, private val gambar:ArrayList<String>) : RecyclerView.Adapter<PenghuniAdapter.NamaKelompokViewHolder>() {
+
+class PenghuniAdapter(private val menus: ArrayList<String>, private val gambar:ArrayList<String>, private val penghunirumah:String) : RecyclerView.Adapter<PenghuniAdapter.NamaKelompokViewHolder>() {
     private var ctx: Context? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NamaKelompokViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,10 +27,16 @@ class PenghuniAdapter(private val menus: ArrayList<String>, private val gambar:A
     }
 
     override fun onBindViewHolder(holder: NamaKelompokViewHolder, position: Int) {
+        if (penghunirumah==menus[position]){
+            holder.card.isPressed = true
+        }
         holder.name.text = menus[position]
         Glide.with(ctx!!).load(gambar[position]).into(holder.image)
         holder.card.setOnClickListener {
-            ctx?.vibrate(longArrayOf(0, 350))
+            val data = Intent("message_subject_intent")
+            data.putExtra("penghuni", menus[position])
+            LocalBroadcastManager.getInstance(ctx!!).sendBroadcast(data)
+            //ctx?.//vibrate(longArrayOf(0, 350))
             val intent = Intent(ctx, IdentitasActivity::class.java)
             ctx?.startActivity(intent)
         }

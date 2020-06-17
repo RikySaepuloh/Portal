@@ -17,7 +17,7 @@ class TambahPaketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tambah_paket)
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behaviorTujuan.state == BottomSheetBehavior.STATE_EXPANDED||behaviorPenghuni.state == BottomSheetBehavior.STATE_EXPANDED){
                 behaviorTujuan.state = BottomSheetBehavior.STATE_COLLAPSED
                 behaviorPenghuni.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -31,7 +31,7 @@ class TambahPaketActivity : AppCompatActivity() {
         behaviorPenghuni = BottomSheetBehavior.from(bottom_sheet_penghuni)
 
         tujuan.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behaviorTujuan.state != BottomSheetBehavior.STATE_EXPANDED){
                 behaviorTujuan.state = BottomSheetBehavior.STATE_EXPANDED
                 overlay.visibility = View.VISIBLE
@@ -42,7 +42,7 @@ class TambahPaketActivity : AppCompatActivity() {
         }
 
         penghuni.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behaviorPenghuni.state != BottomSheetBehavior.STATE_EXPANDED){
                 behaviorPenghuni.state = BottomSheetBehavior.STATE_EXPANDED
                 overlay.visibility = View.VISIBLE
@@ -103,7 +103,7 @@ class TambahPaketActivity : AppCompatActivity() {
         })
 
         simpan.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this,PaketSuccessActivity::class.java)
             startActivity(intent)
             finishAffinity()

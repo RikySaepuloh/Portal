@@ -23,7 +23,7 @@ class PantauActivity : AppCompatActivity() {
         recyclerview.layoutManager = layoutManager
         recyclerview.adapter = myadapter
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             super.onBackPressed()
         }
     }

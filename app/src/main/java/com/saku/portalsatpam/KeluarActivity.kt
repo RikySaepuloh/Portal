@@ -26,7 +26,7 @@ class KeluarActivity : AppCompatActivity() {
             window.statusBarColor = Color.TRANSPARENT
 //        }
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             super.onBackPressed() }
 //        simpan.setOnClickListener {
 //            val intent = Intent(this,SelesaiActivity::class.java)

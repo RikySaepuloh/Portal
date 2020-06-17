@@ -31,9 +31,9 @@ class PaketAdapter(private val data: ArrayList<ModelPaket>) : RecyclerView.Adapt
         holder.tujuan.text = data[position].tujuan
         holder.kode.text = data[position].kode
         holder.card.setOnClickListener {
-            ctx?.vibrate(longArrayOf(0, 350))
+//            ctx?.//vibrate(longArrayOf(0, 350))
             Toast.makeText(ctx!!,"Sentuh icon search diatas untuk memunculkan Menu",Toast.LENGTH_LONG).show()
-//            ctx?.vibrate(longArrayOf(0, 350))
+//            ctx?.//vibrate(longArrayOf(0, 350))
 //            val intent = Intent(ctx, IdentitasActivity::class.java)
 //            ctx?.startActivity(intent)
         }

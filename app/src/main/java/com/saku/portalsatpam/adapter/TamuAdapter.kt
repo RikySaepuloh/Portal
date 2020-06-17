@@ -31,9 +31,9 @@ class TamuAdapter(private val data: ArrayList<ModelTamu>) : RecyclerView.Adapter
         holder.kode.text = data[position].kode
         holder.durasi.text = data[position].durasi
         holder.card.setOnClickListener {
-            ctx?.vibrate(longArrayOf(0, 350))
+//            ctx?.//vibrate(longArrayOf(0, 350))
             Toast.makeText(ctx!!,"Sentuh icon search diatas untuk memunculkan Menu",Toast.LENGTH_LONG).show()
-//            ctx?.vibrate(longArrayOf(0, 350))
+//            ctx?.//vibrate(longArrayOf(0, 350))
 //            val intent = Intent(ctx, IdentitasActivity::class.java)
 //            ctx?.startActivity(intent)
         }

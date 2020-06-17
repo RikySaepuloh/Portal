@@ -5,9 +5,11 @@
 <!--        -->
 <!--        android:drawable="@drawable/menu_pressed"/>-->
     <item android:state_pressed="true"
+        android:color="@android:color/white"
         android:drawable="@drawable/card_background_pressed"
          />
 
     <item
+        android:color="@android:color/black"
         android:drawable="@drawable/card_background_default"/>
 </selector>

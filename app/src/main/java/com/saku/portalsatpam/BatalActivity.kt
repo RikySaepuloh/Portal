@@ -11,7 +11,7 @@ class BatalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_batal)
         selesai.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this@BatalActivity,MainActivity::class.java)
             startActivity(intent)
         }

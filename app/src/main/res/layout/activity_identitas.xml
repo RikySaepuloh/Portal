@@ -87,6 +87,23 @@
 <!--        </com.otaliastudios.cameraview.CameraView>-->
 
 
+        <com.budiyev.android.codescanner.CodeScannerView
+            android:id="@+id/scanner_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:autoFocusButtonColor="@android:color/white"
+            app:autoFocusButtonVisible="false"
+            app:flashButtonColor="@android:color/white"
+            app:flashButtonVisible="false"
+            app:frameColor="@android:color/white"
+            app:frameCornersSize="10dp"
+            app:frameCornersRadius="10dp"
+            app:frameAspectRatioWidth="2"
+            app:frameAspectRatioHeight="1"
+            app:frameSize="0.6"
+            app:frameThickness="2dp"
+            app:maskColor="#88000000"/>
+
         <TextView
             android:id="@+id/judul"
             android:layout_marginTop="30dp"

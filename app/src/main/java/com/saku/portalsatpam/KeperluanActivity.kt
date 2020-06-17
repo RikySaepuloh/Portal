@@ -86,10 +86,10 @@ class KeperluanActivity : AppCompatActivity() {
 
 
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             super.onBackPressed() }
         selanjutnya.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
 //            if(menu==null||menu==""||menu.isEmpty()){
 //                Toast.makeText(this,"Dimohon untuk memilih menu disamping terlebih dahulu", Toast.LENGTH_SHORT).show()
 //            }else{

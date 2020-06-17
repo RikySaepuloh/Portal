@@ -30,12 +30,12 @@ class PaketActivity : AppCompatActivity() {
         recyclerview.adapter = myadapter
         
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             super.onBackPressed()
         }
         behavior = BottomSheetBehavior.from(bottom_sheet_tunggu)
         tambah.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this,TambahPaketActivity::class.java)
             startActivity(intent)
 //            if(behavior.state != BottomSheetBehavior.STATE_EXPANDED){
@@ -46,7 +46,7 @@ class PaketActivity : AppCompatActivity() {
         }
 
         search.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behavior.state != BottomSheetBehavior.STATE_EXPANDED){
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }else{
@@ -82,7 +82,7 @@ class PaketActivity : AppCompatActivity() {
 
         terima.setOnClickListener {
 //            TODO : ADD FUNCTION IN HERE
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             if(behavior.state != BottomSheetBehavior.STATE_EXPANDED){
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }else{

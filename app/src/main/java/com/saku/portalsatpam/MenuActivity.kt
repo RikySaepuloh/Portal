@@ -21,7 +21,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
         setSupportActionBar(toolbar)
         back.setOnClickListener {
-            vibrate(longArrayOf(0, 350))
+            //vibrate(longArrayOf(0, 350))
             super.onBackPressed() }
         adapter = MenuAdapter(menus)
         recyclerview.layoutManager = GridLayoutManager(this,3)
