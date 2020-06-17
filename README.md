@@ -20,6 +20,7 @@ Aplikasi berbasis Android Tablet Device dengan fungsionalitas untuk mencatat kun
 V1 : User login menggunakan nomor telepon (Non-API)
 
 V2 : User login menggunakan barcode (Non-API)
+     Perubahan alur layout menjadi lebih user-friendly
 
 ___
 
