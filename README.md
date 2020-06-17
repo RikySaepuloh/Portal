@@ -15,8 +15,10 @@ V1 : User login menggunakan nomor telepon (Non-API)
 
 V2 : User login menggunakan barcode (Non-API)
 
-Code : Riky Saepuloh
+___
 
-Layout Design : Khoirul Afnan
+*Code : Riky Saepuloh*
 
-&copy; Copyright 2020
+*Layout Design : Khoirul Afnan*
+
+*&copy; Copyright 2020*
