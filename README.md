@@ -10,7 +10,9 @@ Aplikasi berbasis Android Tablet Device dengan fungsionalitas untuk mencatat kun
 * Hdodenhof CircleImageView
 
 **Version Guides**
+
 V1 : User login menggunakan nomor telepon (Non-API)
+
 V2 : User login menggunakan barcode (Non-API)
 
 Code : Riky Saepuloh
