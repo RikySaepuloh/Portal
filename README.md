@@ -17,11 +17,15 @@ Aplikasi berbasis Android Tablet Device dengan fungsionalitas untuk mencatat kun
 
 ## Version Guides
 
-V1 : User login menggunakan nomor telepon (Non-API)
+Version 1.0
 
-V2 : User login menggunakan barcode (Non-API)
+     - User login menggunakan nomor telepon (Non-API)
+
+Version 2.0
+
+     - User login menggunakan barcode (Non-API)
      
-     Perubahan alur layout menjadi lebih user-friendly
+     - Perubahan alur layout menjadi lebih user-friendly
 
 ## Developer
 
