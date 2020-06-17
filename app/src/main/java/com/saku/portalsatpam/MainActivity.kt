@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         nav_view.setNavigationItemSelectedListener(this)
         nav_logout.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
-            val intent = Intent(this,LoginScanActivity::class.java)
+            val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
             finishAffinity()
         }
