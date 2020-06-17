@@ -2,14 +2,20 @@
 
 Aplikasi berbasis Android Tablet Device dengan fungsionalitas untuk mencatat kunjungan tamu didaerah berdasarkan tujuan kunjungan dan KTP sebagai bukti.
 
-**Library yang digunakan :**
-* Retrofit & OkHttp3
-* Glide (Image Processor)
-* CodeScanner (budiyev - GitHub)
-* CameraView
-* Hdodenhof CircleImageView
+## Library yang digunakan :
 
-**Version Guides**
+[Retrofit & OkHttp3](https://github.com/square/retrofit)
+
+[Glide (Image Processor)](https://github.com/bumptech/glide)
+
+[CodeScanner](https://github.com/yuriy-budiyev/code-scanner)
+
+[CameraView](https://github.com/natario1/CameraView)
+
+[Hdodenhof CircleImageView](https://github.com/hdodenhof/CircleImageView)
+
+
+## Version Guides
 
 V1 : User login menggunakan nomor telepon (Non-API)
 
