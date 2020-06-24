@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.budiyev.android.codescanner.*
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.PictureResult
 import kotlinx.android.synthetic.main.activity_identitas.*
@@ -19,44 +18,47 @@ import java.io.IOException
 
 
 class IdentitasActivity : AppCompatActivity() {
-    private lateinit var codeScanner: CodeScanner
+//    private lateinit var codeScanner: CodeScanner
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identitas)
+        if(intent.hasExtra("paket")){
+            judul.text = "Paket"
+        }
         val window = window
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window.statusBarColor = Color.TRANSPARENT
         camera.setLifecycleOwner(this)
-        codeScanner = CodeScanner(this, scanner_view)
-
-        // Parameters (default values)
-        codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
-        codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
-        // ex. listOf(BarcodeFormat.QR_CODE)
-        codeScanner.autoFocusMode = AutoFocusMode.CONTINUOUS // or CONTINUOUS
-        codeScanner.scanMode = ScanMode.SINGLE // or CONTINUOUS or PREVIEW
-        codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
-        codeScanner.isFlashEnabled = false // Whether to enable flash or not
-        codeScanner.isTouchFocusEnabled = true
-
-        // Callbacks
-        codeScanner.decodeCallback = DecodeCallback {
-            runOnUiThread {
-                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
-                camera.takePicture()
-            }
-//            val intent = Intent(this,MainActivity::class.java)
-//            startActivity(intent)
-        }
-        codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
-            runOnUiThread {
-                Toast.makeText(this, "Camera initialization error: ${it.message}",
-                    Toast.LENGTH_LONG).show()
-            }
-        }
-
-        codeScanner.startPreview()
+//        codeScanner = CodeScanner(this, scanner_view)
+//
+//        // Parameters (default values)
+//        codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
+//        codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
+//        // ex. listOf(BarcodeFormat.QR_CODE)
+//        codeScanner.autoFocusMode = AutoFocusMode.CONTINUOUS // or CONTINUOUS
+//        codeScanner.scanMode = ScanMode.SINGLE // or CONTINUOUS or PREVIEW
+//        codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
+//        codeScanner.isFlashEnabled = false // Whether to enable flash or not
+//        codeScanner.isTouchFocusEnabled = true
+//
+//        // Callbacks
+//        codeScanner.decodeCallback = DecodeCallback {
+//            runOnUiThread {
+//                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
+//                camera.takePicture()
+//            }
+////            val intent = Intent(this,MainActivity::class.java)
+////            startActivity(intent)
+//        }
+//        codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
+//            runOnUiThread {
+//                Toast.makeText(this, "Camera initialization error: ${it.message}",
+//                    Toast.LENGTH_LONG).show()
+//            }
+//        }
+//
+//        codeScanner.startPreview()
 
         back.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
@@ -99,21 +101,35 @@ class IdentitasActivity : AppCompatActivity() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-                val myintentdata = Intent("message_subject_intent")
-                myintentdata.putExtra("imagefile", file.path)
-                LocalBroadcastManager.getInstance(this@IdentitasActivity).sendBroadcast(myintentdata)
-                finish()
+                if(intent.hasExtra("tunggu")){
+                    Toast.makeText(this@IdentitasActivity,"Hey",Toast.LENGTH_LONG).show()
+                    val intent = Intent(this@IdentitasActivity,SelesaiMasukActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
+                }else if(intent.hasExtra("paket")){
+//                    Toast.makeText(this@IdentitasActivity,file.name,Toast.LENGTH_LONG).show()
+                    val myintentdata = Intent("image_intent")
+                    myintentdata.putExtra("namefile", file.name)
+                    myintentdata.putExtra("imagefile", file.path)
+                    LocalBroadcastManager.getInstance(this@IdentitasActivity).sendBroadcast(myintentdata)
+                    finish()
+                } else{
+                    Toast.makeText(this@IdentitasActivity,"Dasar",Toast.LENGTH_LONG).show()
+                    val myintentdata = Intent("message_subject_intent")
+                    myintentdata.putExtra("imagefile", file.path)
+                    LocalBroadcastManager.getInstance(this@IdentitasActivity).sendBroadcast(myintentdata)
+                    finish()
+                }
 
 //                val intent = Intent(this@IdentitasActivity,SelesaiMasukActivity::class.java)
 //                intent.putExtra("filepath",file.path)
 //                startActivity(intent)
-//                Toast.makeText(this@IdentitasActivity,"YE berhasil",Toast.LENGTH_LONG).show()
             }
         })
 
         simpan.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
-//            camera.takePicture()
+            camera.takePicture()
 //            camera.captureImage { camera, capturedImage ->
 //                val filepath = Environment.getExternalStorageDirectory()
 //                val dir =

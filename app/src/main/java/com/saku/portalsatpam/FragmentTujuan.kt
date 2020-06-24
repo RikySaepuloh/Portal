@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_c
 import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_d
 import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_e
 import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_slash
-import kotlinx.android.synthetic.main.fragment_tujuan.view.tujuan
+import kotlinx.android.synthetic.main.fragment_tujuan.view.bs_tujuan
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,7 +65,7 @@ class FragmentTujuan : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myview.tujuan.setOnTouchListener { v, event ->
+        myview.bs_tujuan.setOnTouchListener { v, event ->
             v.onTouchEvent(event)
             val inputMethod: InputMethodManager = v.context
                 .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -75,81 +75,81 @@ class FragmentTujuan : Fragment() {
             true
         }
         if((activity as NeinActivity).tujuan!="-"){
-            myview.tujuan.setText((activity as NeinActivity).tujuan)
+            myview.bs_tujuan.setText((activity as NeinActivity).tujuan)
         }
         myview.delete.setOnClickListener {
-            myview.tujuan.text.clear()
+            myview.bs_tujuan.text.clear()
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_0.setOnClickListener {
-            myview.tujuan.text.append("0")
+            myview.bs_tujuan.text.append("0")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_1.setOnClickListener {
-            myview.tujuan.text.append("1")
+            myview.bs_tujuan.text.append("1")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_2.setOnClickListener {
-            myview.tujuan.text.append("2")
+            myview.bs_tujuan.text.append("2")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_3.setOnClickListener {
-            myview.tujuan.text.append("3")
+            myview.bs_tujuan.text.append("3")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_4.setOnClickListener {
-            myview.tujuan.text.append("4")
+            myview.bs_tujuan.text.append("4")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_5.setOnClickListener {
-            myview.tujuan.text.append("5")
+            myview.bs_tujuan.text.append("5")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_6.setOnClickListener {
-            myview.tujuan.text.append("6")
+            myview.bs_tujuan.text.append("6")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_7.setOnClickListener {
-            myview.tujuan.text.append("7")
+            myview.bs_tujuan.text.append("7")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_8.setOnClickListener {
-            myview.tujuan.text.append("8")
+            myview.bs_tujuan.text.append("8")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_9.setOnClickListener {
-            myview.tujuan.text.append("9")
+            myview.bs_tujuan.text.append("9")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_slash.setOnClickListener {
-            myview.tujuan.text.append("-")
+            myview.bs_tujuan.text.append("-")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_a.setOnClickListener {
-            myview.tujuan.text.append("A")
+            myview.bs_tujuan.text.append("A")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_b.setOnClickListener {
-            myview.tujuan.text.append("B")
+            myview.bs_tujuan.text.append("B")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_c.setOnClickListener {
-            myview.tujuan.text.append("C")
+            myview.bs_tujuan.text.append("C")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_d.setOnClickListener {
-            myview.tujuan.text.append("D")
+            myview.bs_tujuan.text.append("D")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.menu_e.setOnClickListener {
-            myview.tujuan.text.append("E")
+            myview.bs_tujuan.text.append("E")
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.selanjutnya.setOnClickListener {
-            if(myview.tujuan.text.toString()==""||myview.tujuan.text.toString()==null||myview.tujuan.text.toString().isEmpty()||myview.tujuan.text.toString().length<4){
+            if(myview.bs_tujuan.text.toString()==""||myview.bs_tujuan.text.toString()==null||myview.bs_tujuan.text.toString().isEmpty()||myview.bs_tujuan.text.toString().length<4){
                 Toast.makeText(context,"Masukkan tujuan terlebih dahulu!",Toast.LENGTH_LONG).show()
             }else{
-                passData(myview.tujuan.text.toString())
+                passData(myview.bs_tujuan.text.toString())
                 (activity as NeinActivity?)?.changeFragment(FragmentPenghuni())
             }
         }

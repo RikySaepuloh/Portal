@@ -3,17 +3,12 @@ package com.saku.portalsatpam
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_keperluan.*
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class KeperluanActivity : AppCompatActivity() {
@@ -25,14 +20,14 @@ class KeperluanActivity : AppCompatActivity() {
         setContentView(R.layout.activity_keperluan)
         setSupportActionBar(toolbar)
         oldColors= paket.textColors
-        tujuan.requestFocus()
+        bs_tujuan.requestFocus()
 //        tujuan.setOnFocusChangeListener { v, hasFocus ->
 //            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //            if (hasFocus) {
 //                imm.hideSoftInputFromWindow(v.windowToken, 0)
 //            }
 //        }
-        tujuan.setOnTouchListener { v, event ->
+        bs_tujuan.setOnTouchListener { v, event ->
             v.onTouchEvent(event)
             val inputMethod: InputMethodManager = v.context
                 .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -142,71 +137,71 @@ class KeperluanActivity : AppCompatActivity() {
         }
 
         delete.setOnClickListener {
-            tujuan.text.clear()
+            bs_tujuan.text.clear()
             vibrate(longArrayOf(0, 150))
         }
         menu_0.setOnClickListener {
-            tujuan.text.append("0")
+            bs_tujuan.text.append("0")
             vibrate(longArrayOf(0, 150))
         }
         menu_1.setOnClickListener {
-            tujuan.text.append("1")
+            bs_tujuan.text.append("1")
             vibrate(longArrayOf(0, 150))
         }
         menu_2.setOnClickListener {
-            tujuan.text.append("2")
+            bs_tujuan.text.append("2")
             vibrate(longArrayOf(0, 150))
         }
         menu_3.setOnClickListener {
-            tujuan.text.append("3")
+            bs_tujuan.text.append("3")
             vibrate(longArrayOf(0, 150))
         }
         menu_4.setOnClickListener {
-            tujuan.text.append("4")
+            bs_tujuan.text.append("4")
             vibrate(longArrayOf(0, 150))
         }
         menu_5.setOnClickListener {
-            tujuan.text.append("5")
+            bs_tujuan.text.append("5")
             vibrate(longArrayOf(0, 150))
         }
         menu_6.setOnClickListener {
-            tujuan.text.append("6")
+            bs_tujuan.text.append("6")
             vibrate(longArrayOf(0, 150))
         }
         menu_7.setOnClickListener {
-            tujuan.text.append("7")
+            bs_tujuan.text.append("7")
             vibrate(longArrayOf(0, 150))
         }
         menu_8.setOnClickListener {
-            tujuan.text.append("8")
+            bs_tujuan.text.append("8")
             vibrate(longArrayOf(0, 150))
         }
         menu_9.setOnClickListener {
-            tujuan.text.append("9")
+            bs_tujuan.text.append("9")
             vibrate(longArrayOf(0, 150))
         }
         menu_slash.setOnClickListener {
-            tujuan.text.append("/")
+            bs_tujuan.text.append("/")
             vibrate(longArrayOf(0, 150))
         }
         menu_a.setOnClickListener {
-            tujuan.text.append("A")
+            bs_tujuan.text.append("A")
             vibrate(longArrayOf(0, 150))
         }
         menu_b.setOnClickListener {
-            tujuan.text.append("B")
+            bs_tujuan.text.append("B")
             vibrate(longArrayOf(0, 150))
         }
         menu_c.setOnClickListener {
-            tujuan.text.append("C")
+            bs_tujuan.text.append("C")
             vibrate(longArrayOf(0, 150))
         }
         menu_d.setOnClickListener {
-            tujuan.text.append("D")
+            bs_tujuan.text.append("D")
             vibrate(longArrayOf(0, 150))
         }
         menu_e.setOnClickListener {
-            tujuan.text.append("E")
+            bs_tujuan.text.append("E")
             vibrate(longArrayOf(0, 150))
         }
 //        menu_f.setOnClickListener {

@@ -1,9 +1,15 @@
 package com.saku.portalsatpam
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_tambah_paket.*
 import kotlinx.android.synthetic.main.bottom_sheet_list_penghuni.*
@@ -12,10 +18,44 @@ import kotlinx.android.synthetic.main.bottom_sheet_list_tujuan.*
 class TambahPaketActivity : AppCompatActivity() {
     lateinit var behaviorTujuan : BottomSheetBehavior<View>
     lateinit var behaviorPenghuni : BottomSheetBehavior<View>
+    var namefile :String? = null
+    var imagefile:String? = null
+
+    private val mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            if(intent.hasExtra("imagefile")){
+                namefile = intent.getStringExtra("namefile")
+                imagefile = intent.getStringExtra("imagefile")
+                addimage.text = namefile
+                Toast.makeText(this@TambahPaketActivity,imagefile,Toast.LENGTH_LONG).show()
+                Glide.with(this@TambahPaketActivity).load(imagefile).into(image)
+            }
+        }
+    }
+
+//    override fun onResume() {
+//        super.onResume()
+//        LocalBroadcastManager.getInstance(this@TambahPaketActivity)
+//            .registerReceiver(mMessageReceiver, IntentFilter("image_intent"))
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        LocalBroadcastManager.getInstance(this@TambahPaketActivity)
+//            .unregisterReceiver(mMessageReceiver)
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this@TambahPaketActivity)
+            .unregisterReceiver(mMessageReceiver)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tambah_paket)
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(mMessageReceiver, IntentFilter("image_intent"))
         back.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
             if(behaviorTujuan.state == BottomSheetBehavior.STATE_EXPANDED||behaviorPenghuni.state == BottomSheetBehavior.STATE_EXPANDED){
@@ -27,10 +67,16 @@ class TambahPaketActivity : AppCompatActivity() {
             }
         }
 
+        image.setOnClickListener {
+            val intent = Intent(this@TambahPaketActivity,IdentitasActivity::class.java)
+            intent.putExtra("paket",true)
+            startActivity(intent)
+        }
+
         behaviorTujuan = BottomSheetBehavior.from(bottom_sheet_tujuan)
         behaviorPenghuni = BottomSheetBehavior.from(bottom_sheet_penghuni)
 
-        tujuan.setOnClickListener {
+        bs_tujuan.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
             if(behaviorTujuan.state != BottomSheetBehavior.STATE_EXPANDED){
                 behaviorTujuan.state = BottomSheetBehavior.STATE_EXPANDED
@@ -41,7 +87,7 @@ class TambahPaketActivity : AppCompatActivity() {
             }
         }
 
-        penghuni.setOnClickListener {
+        bs_penghuni.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
             if(behaviorPenghuni.state != BottomSheetBehavior.STATE_EXPANDED){
                 behaviorPenghuni.state = BottomSheetBehavior.STATE_EXPANDED

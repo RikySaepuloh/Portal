@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 class Preferences {
 
-    var APP_NAME = "Approval System"
+    var APP_NAME = "PORTAL"
 
     private var log_status = "log_status"
     private var token_type = "token_type"

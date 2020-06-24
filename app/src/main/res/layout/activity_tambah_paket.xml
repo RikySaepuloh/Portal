@@ -40,14 +40,26 @@
             android:layout_marginRight="75dp"
             android:orientation="horizontal"
             android:weightSum="3">
-            <ImageView
-                android:id="@+id/image"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/addimage2"
-                android:background="@drawable/add_image_background"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/addimage2"
+                    />
+                <TextView
+                    android:id="@+id/addimage"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Masukkan gambar"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -55,7 +67,7 @@
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
                 <Button
-                    android:id="@+id/tujuan"
+                    android:id="@+id/bs_tujuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
@@ -65,7 +77,7 @@
                     android:textAllCaps="false"
                     android:text="Pilih Tujuan"/>
                 <Button
-                    android:id="@+id/penghuni"
+                    android:id="@+id/bs_penghuni"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"

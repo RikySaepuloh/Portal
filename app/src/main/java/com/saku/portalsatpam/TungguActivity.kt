@@ -1,9 +1,13 @@
 package com.saku.portalsatpam
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -18,6 +22,32 @@ class TungguActivity : AppCompatActivity() {
     private lateinit var behaviorKonfirmasi : BottomSheetBehavior<View>
     private var data : ArrayList<ModelTunggu> = ArrayList()
     private lateinit var myadapter : TungguAdapter
+    var datatujuan :String? = null
+    var datakeperluan:String? = null
+    var datapenghuni:String? = null
+
+    private val mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            if(intent.hasExtra("trigger")){
+                datatujuan = ": "+intent.getStringExtra("tujuan")
+                datakeperluan = ": "+intent.getStringExtra("keperluan")
+                datapenghuni = ": "+intent.getStringExtra("penghuni")
+                bs_tujuan.text = datatujuan
+                bs_keperluan.text = datakeperluan
+                bs_penghuni.text = datapenghuni
+                if(behaviorTunggu.state != BottomSheetBehavior.STATE_EXPANDED){
+                    behaviorTunggu.state = BottomSheetBehavior.STATE_EXPANDED
+                    overlay.visibility = View.VISIBLE
+                }else{
+                    behaviorTunggu.state = BottomSheetBehavior.STATE_COLLAPSED
+                    overlay.visibility = View.GONE
+                    bs_tujuan.text = ": -"
+                    bs_keperluan.text = ": -"
+                    bs_penghuni.text = ": -"
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +64,19 @@ class TungguActivity : AppCompatActivity() {
         behaviorKonfirmasi = BottomSheetBehavior.from(bottom_sheet_konfirmasi)
         search.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
-            if(behaviorTunggu.state != BottomSheetBehavior.STATE_EXPANDED){
-                behaviorTunggu.state = BottomSheetBehavior.STATE_EXPANDED
-                overlay.visibility = View.VISIBLE
-            }else{
-                behaviorTunggu.state = BottomSheetBehavior.STATE_COLLAPSED
-                overlay.visibility = View.GONE
-            }
+//            if(behaviorTunggu.state != BottomSheetBehavior.STATE_EXPANDED){
+//                behaviorTunggu.state = BottomSheetBehavior.STATE_EXPANDED
+//                overlay.visibility = View.VISIBLE
+//            }else{
+//                behaviorTunggu.state = BottomSheetBehavior.STATE_COLLAPSED
+//                overlay.visibility = View.GONE
+//            }
         }
 
         lanjut.setOnClickListener {
             //vibrate(longArrayOf(0, 350))
             val intent = Intent(this@TungguActivity,IdentitasActivity::class.java)
+            intent.putExtra("tunggu",true)
             startActivity(intent)
         }
 
@@ -138,8 +169,18 @@ class TungguActivity : AppCompatActivity() {
             //vibrate(longArrayOf(0, 350))
             super.onBackPressed()
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(mMessageReceiver, IntentFilter("bottom_sheet_trigger"))
+    }
 
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(this)
+            .unregisterReceiver(mMessageReceiver)
     }
 
     override fun onBackPressed() {

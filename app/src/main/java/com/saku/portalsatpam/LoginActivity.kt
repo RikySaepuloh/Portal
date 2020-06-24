@@ -6,20 +6,11 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.budiyev.android.codescanner.AutoFocusMode
-import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.DecodeCallback
-import com.budiyev.android.codescanner.ErrorCallback
-import com.budiyev.android.codescanner.ScanMode
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login_scan.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -30,11 +21,13 @@ class LoginActivity : AppCompatActivity() {
         Manifest.permission.CAMERA,
         Manifest.permission.RECORD_AUDIO
     )
-    private lateinit var codeScanner: CodeScanner
+    var preferences  = Preferences()
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        preferences.setPreferences(this@LoginActivity)
+        checkLogin()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(arePermissionsEnabled()){
 //          permissions granted, continue flow normally
@@ -53,9 +46,10 @@ class LoginActivity : AppCompatActivity() {
 //            }
             val intent = Intent(this@LoginActivity,LoginScanActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
+
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun requestMultiplePermissions(){
@@ -105,4 +99,15 @@ class LoginActivity : AppCompatActivity() {
             //all is good, continue flow
         }
     }
+
+    private fun checkLogin(){
+        if(preferences.getLogStatus()){
+            val intent =
+                Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+
 }

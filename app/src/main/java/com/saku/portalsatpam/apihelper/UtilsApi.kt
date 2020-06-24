@@ -1,11 +1,9 @@
-package com.saku.approval_2.api_service
+package com.saku.portalsatpam.apihelper
 
 import android.content.Context
-import com.saku.portalsatpam.apihelper.ApiBuilder
-import com.saku.portalsatpam.apihelper.ApiService
 
 class UtilsApi()  {
-    val BASE_URL_API = "http://api.simkug.com/api/"
+    val BASE_URL_API = "https://api.simkug.com/api/portal/"
 
     fun getAPIService(context: Context): ApiService? {
         return ApiBuilder().getClient(BASE_URL_API,context)?.create(ApiService::class.java)

@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    android:layout_marginLeft="40dp"
-    android:layout_marginRight="40dp"
+    android:layout_marginLeft="80dp"
+    android:layout_marginRight="80dp"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
     <androidx.cardview.widget.CardView
@@ -56,7 +56,7 @@
                         android:layout_weight="1"
                         android:text="Tujuan"/>
                     <TextView
-                        android:id="@+id/tujuan"
+                        android:id="@+id/bs_tujuan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -69,7 +69,7 @@
                         android:layout_weight="1"
                         android:text="Keperluan"/>
                     <TextView
-                        android:id="@+id/keperluan"
+                        android:id="@+id/bs_keperluan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -79,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="24dp"
                     android:weightSum="4">
                     <TextView
                         android:layout_width="0dp"
@@ -86,7 +87,7 @@
                         android:layout_weight="1"
                         android:text="Penghuni"/>
                     <TextView
-                        android:id="@+id/penghuni"
+                        android:id="@+id/bs_penghuni"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

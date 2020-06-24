@@ -21,9 +21,9 @@
             app:frameColor="@android:color/white"
             app:frameCornersSize="10dp"
             app:frameCornersRadius="10dp"
-            app:frameAspectRatioWidth="2"
+            app:frameAspectRatioWidth="1"
             app:frameAspectRatioHeight="1"
-            app:frameSize="0.6"
+            app:frameSize="0.5"
             app:frameThickness="2dp"
             app:maskColor="#88000000"/>
         <TextView
@@ -31,6 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:text="Posisikan kartu identitas satpam disini" />
+            android:text="Posisikan identitas satpam disini" />
     </RelativeLayout>
 </RelativeLayout>

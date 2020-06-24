@@ -1,4 +1,4 @@
-package com.saku.approval_2.api_service
+package com.saku.portalsatpam.apihelper
 
 import com.google.gson.annotations.SerializedName
 

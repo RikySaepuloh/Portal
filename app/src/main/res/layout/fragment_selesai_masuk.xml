@@ -6,6 +6,14 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".FragmentSelesai">
+    <ImageView
+        android:id="@+id/scan_bluetooth"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:contentDescription="Scan Bluetooth"
+        android:src="@drawable/ic_tunggu"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,20 +28,19 @@
             android:text="Pengunjung"
             android:layout_marginBottom="24dp"
             android:textSize="30sp"/>
-        <TextView
+        <ImageView
+            android:id="@+id/qrcode"
             android:layout_width="250dp"
-            android:textSize="56sp"
-            android:text="72"
             android:gravity="center"
             android:layout_marginBottom="12dp"
-            android:layout_height="100dp"/>
+            android:layout_height="250dp"/>
         <Button
             android:id="@+id/selesai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="200dp"
             android:background="@drawable/selector_button"
-            android:text="Selesai"
+            android:text="Cetak"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
             android:textColor="#ffffff" />

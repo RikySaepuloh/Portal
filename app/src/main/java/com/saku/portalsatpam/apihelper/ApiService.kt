@@ -1,6 +1,5 @@
 package com.saku.portalsatpam.apihelper
 
-import com.saku.approval_2.api_service.LoginResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -8,11 +7,23 @@ import retrofit2.http.*
 
 interface ApiService {
     @FormUrlEncoded
-    @POST("approval/login")
+    @POST("login")
     fun login(
-        @Field("nik") nik: String?,
-        @Field("password") password: String?
+        @Field("qrcode") nik: String?
+//        @Field("password") password: String?
     ): Call<LoginResponse>
+
+    @GET("paket")
+    fun paket(
+    ): Call<ResponseBody>
+
+    @GET("tamu-masuk")
+    fun tamuMasuk(
+    ): Call<ResponseBody>
+
+    @GET("satpam")
+    fun satpam(
+    ): Call<ResponseBody>
 
     @FormUrlEncoded
     @POST("approval/app")

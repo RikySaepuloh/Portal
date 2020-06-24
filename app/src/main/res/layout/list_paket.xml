@@ -2,38 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:weightSum="7"
         android:id="@+id/data_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:weightSum="7">
+
         <TextView
             android:id="@+id/no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"/>
+            android:text="-" />
+
         <TextView
             android:id="@+id/kode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="-"/>
+            android:text="-" />
+
         <TextView
             android:id="@+id/tujuan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="-"/>
+            android:text="-" />
+
         <TextView
             android:id="@+id/penghuni"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="-"/>
+            android:baselineAligned="false"
+            android:text="-" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

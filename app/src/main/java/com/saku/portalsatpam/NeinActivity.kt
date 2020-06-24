@@ -12,59 +12,66 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
-import com.saku.portalsatpam.adapter.FragmentAdapter
 import com.saku.portalsatpam.fragments.FragmentKeperluan
 import kotlinx.android.synthetic.main.activity_nein.*
 
 
 class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
-    private var mAdapter: FragmentAdapter? = null
+//    private var mAdapter: FragmentAdapter? = null
     var keperluan : String? = null
     var tujuan : String? = null
     var penghuni : String? = null
     var imgPath : String? = null
     var stat = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nein)
-
-        val mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent) {
-                if(intent.hasExtra("penghuni")){
+    var mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            when {
+                intent.hasExtra("penghuni") -> {
                     val name = intent.getStringExtra("penghuni")
-//                    Toast.makeText(this@NeinActivity, name, Toast.LENGTH_SHORT).show()
+                    //                    Toast.makeText(this@NeinActivity, name, Toast.LENGTH_SHORT).show()
                     penghuni = name
                     tv_penghuni.text = penghuni
                     resetBG()
                     card_identitas.background = ContextCompat.getDrawable(this@NeinActivity,R.drawable.content_menu_selected)
                     n4.setImageResource(R.drawable.n4_true)
                     stat++
-                }else if(intent.hasExtra("imagefile")){
+                }
+                intent.hasExtra("imagefile") -> {
                     val image = intent.getStringExtra("imagefile")
                     imgPath = image
                     Toast.makeText(this@NeinActivity, image, Toast.LENGTH_SHORT).show()
                     Glide.with(this@NeinActivity).load(image).into(identitas)
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentSelesai()).commitAllowingStateLoss();
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentSelesai()).commitAllowingStateLoss()
                     card_keperluan.isEnabled = false
                     card_tujuan.isEnabled = false
                     card_penghuni.isEnabled = false
                     card_identitas.isEnabled = false
-                }else if(intent.hasExtra("back")){
+                }
+                intent.hasExtra("back") -> {
                     resetBG()
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentPenghuni()).commitAllowingStateLoss();
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentPenghuni()).commitAllowingStateLoss()
                     card_penghuni.background = ContextCompat.getDrawable(this@NeinActivity,R.drawable.content_menu_selected)
                     n4.setImageResource(R.drawable.n4_false)
                     stat--
                 }
             }
         }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this)
+            .unregisterReceiver(mMessageReceiver)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_nein)
+//        val fragment : FragmentKeperluan = FragmentKeperluan()
+        supportFragmentManager.beginTransaction().add(R.id.frame_layout, FragmentKeperluan()).commit()
         LocalBroadcastManager.getInstance(this)
             .registerReceiver(mMessageReceiver, IntentFilter("message_subject_intent"))
-
-        val fragment : FragmentKeperluan = FragmentKeperluan()
-        supportFragmentManager.beginTransaction().add(R.id.frame_layout, fragment).commit();
-
 //        val mesrec: BroadcastReceiver = object : BroadcastReceiver() {
 //            override fun onReceive(context: Context?, intent: Intent) {
 //                if(intent.hasExtra(""))
@@ -157,7 +164,7 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
         card_keperluan.background = ContextCompat.getDrawable(this,R.drawable.content_menu_selected)
         card_keperluan.setOnClickListener{
             resetBG()
-            supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentKeperluan()).commit();
+            supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentKeperluan()).commit()
             card_keperluan.background = ContextCompat.getDrawable(this,R.drawable.content_menu_selected)
             n1.setImageResource(R.drawable.n1_true)
         }
@@ -165,7 +172,7 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
             if(keperluan=="empty"){
                 Toast.makeText(this,"Isi menu ini terlebih dahulu",Toast.LENGTH_LONG).show()
             }else{
-                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentTujuan()).commit();
+                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentTujuan()).commit()
                 resetBG()
                 card_tujuan.background = ContextCompat.getDrawable(this,R.drawable.content_menu_selected)
                 n2.setImageResource(R.drawable.n2_true)
@@ -175,7 +182,7 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
         card_penghuni.setOnClickListener{
             if(stat>1){
                 resetBG()
-                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentPenghuni()).commit();
+                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentPenghuni()).commit()
                 card_penghuni.background = ContextCompat.getDrawable(this,R.drawable.content_menu_selected)
                 n3.setImageResource(R.drawable.n3_true)
                 stat++
@@ -203,6 +210,7 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
 
     }
 
+
     fun changeFragment(fragmentClass: Fragment) {
         var fragment: Fragment? = null
         try {
@@ -218,15 +226,7 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
         }
     }
 
-//    fun changeFragment(myfragment : Fragment){
-//        supportFragmentManager.beginTransaction().add(R.id.frame_layout, myfragment).commit();
-//    }
-
     fun resetBG(){
-//        n1.setImageResource(R.drawable.n1_false)
-//        n2.setImageResource(R.drawable.n2_false)
-//        n3.setImageResource(R.drawable.n3_false)
-//        n4.setImageResource(R.drawable.n4_false)
         card_keperluan.setBackgroundResource(0)
         card_penghuni.setBackgroundResource(0)
         card_tujuan.setBackgroundResource(0)
@@ -235,11 +235,11 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
 
 
 
-    override fun onBackPressed() {
-        val intent = Intent(this@NeinActivity,MainActivity::class.java)
-        startActivity(intent)
+//    override fun onBackPressed() {
+////        val intent = Intent(this@NeinActivity,MainActivity::class.java)
+////        startActivity(intent)
 //        super.onBackPressed()
-    }
+//    }
 
     override fun onDataPasserKeperluan(data: String, untuk: String) {
         if(untuk=="keperluan"){

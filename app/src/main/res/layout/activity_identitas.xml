@@ -87,22 +87,22 @@
 <!--        </com.otaliastudios.cameraview.CameraView>-->
 
 
-        <com.budiyev.android.codescanner.CodeScannerView
-            android:id="@+id/scanner_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:autoFocusButtonColor="@android:color/white"
-            app:autoFocusButtonVisible="false"
-            app:flashButtonColor="@android:color/white"
-            app:flashButtonVisible="false"
-            app:frameColor="@android:color/white"
-            app:frameCornersSize="10dp"
-            app:frameCornersRadius="10dp"
-            app:frameAspectRatioWidth="2"
-            app:frameAspectRatioHeight="1"
-            app:frameSize="0.6"
-            app:frameThickness="2dp"
-            app:maskColor="#88000000"/>
+<!--        <com.budiyev.android.codescanner.CodeScannerView-->
+<!--            android:id="@+id/scanner_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:autoFocusButtonColor="@android:color/white"-->
+<!--            app:autoFocusButtonVisible="false"-->
+<!--            app:flashButtonColor="@android:color/white"-->
+<!--            app:flashButtonVisible="false"-->
+<!--            app:frameColor="@android:color/white"-->
+<!--            app:frameCornersSize="10dp"-->
+<!--            app:frameCornersRadius="10dp"-->
+<!--            app:frameAspectRatioWidth="2"-->
+<!--            app:frameAspectRatioHeight="1"-->
+<!--            app:frameSize="0.6"-->
+<!--            app:frameThickness="2dp"-->
+<!--            app:maskColor="#88000000"/>-->
 
         <TextView
             android:id="@+id/judul"
@@ -129,25 +129,23 @@
         <!--            android:text="Barcode Pengunjung"-->
         <!--            android:layout_marginBottom="12dp"-->
         <!--            android:textSize="30sp"/>-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/judul"
-            android:layout_marginTop="72dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
-            android:text="Posisikan identitas pengunjung pada kotak" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/judul"-->
+<!--            android:layout_marginTop="72dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:text="Posisikan identitas pengunjung pada kotak" />-->
         <Button
             android:id="@+id/simpan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="200dp"
-            android:background="@drawable/selector_button"
-            android:text="Simpan"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/selector_shutter"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:textAllCaps="false"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="60dp"
             android:textColor="#ffffff" />
     </RelativeLayout>
 </RelativeLayout>
