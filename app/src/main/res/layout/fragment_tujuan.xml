@@ -23,11 +23,12 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp" >
+                >
                 <EditText
                     android:id="@+id/bs_tujuan"
                     android:background="@drawable/search_background_keyboard"
                     android:padding="10dp"
+                    android:inputType="text"
                     android:textColorHint="@android:color/darker_gray"
                     android:hint="Masukkan alamat tujuan"
                     android:gravity="center"
@@ -39,23 +40,25 @@
                     android:id="@+id/delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="delete"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_cancel_black_24dp"
                     />
-
+                <TextView
+                    android:id="@+id/warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:gravity="center"
+                    android:layout_below="@id/bs_tujuan"
+                    android:visibility="invisible"
+                    android:textColor="@android:color/holo_red_light"
+                    android:text="Nomor Rumah yang anda masukkan salah!"/>
             </RelativeLayout>
-            <TextView
-                android:id="@+id/warning"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:gravity="center"
-                android:visibility="gone"
-                android:textColor="@android:color/holo_red_light"
-                android:text="Nomor Rumah yang anda masukkan salah!"/>
+
             <LinearLayout
                 android:layout_above="@id/selanjutnya"
                 android:layout_marginBottom="12dp"
@@ -92,16 +95,6 @@
                         android:background="@drawable/selector_keyboard_item"
                         android:gravity="center"
                         android:text="D" />
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/menu_g"-->
-                    <!--                                android:background="@drawable/selector_keyboard_item"-->
-                    <!--                                android:layout_margin="5dp"-->
-                    <!--                                android:layout_width="50dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                -->
-                    <!--                                android:gravity="center"-->
-                    <!--                                android:text="G" />-->
 
                     <TextView
                         android:layout_width="50dp"
@@ -174,17 +167,6 @@
                         android:gravity="center"
                         android:text="E" />
 
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/menu_f"-->
-                    <!--                                android:layout_width="50dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                -->
-                    <!--                                android:layout_margin="5dp"-->
-                    <!--                                -->
-                    <!--                                android:background="@drawable/selector_keyboard_item"-->
-                    <!--                                android:gravity="center"-->
-                    <!--                                android:text="F" />-->
-
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
@@ -244,19 +226,6 @@
                         android:gravity="center"
                         android:text="C" />
 
-
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/menu_h"-->
-                    <!--                                android:background="@drawable/selector_keyboard_item"-->
-                    <!--                                android:layout_width="50dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_margin="5dp"-->
-                    <!--                                -->
-                    <!--                                android:gravity="center"-->
-                    <!--                                -->
-                    <!--                                android:text="H" />-->
-
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
@@ -265,16 +234,6 @@
 
                         android:gravity="center"/>
 
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/menu_i"-->
-                    <!--                                android:background="@drawable/selector_keyboard_item"-->
-                    <!--                                android:layout_width="50dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                -->
-                    <!--                                android:layout_margin="5dp"-->
-                    <!--                                -->
-                    <!--                                android:gravity="center"-->
-                    <!--                                android:text="I" />-->
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
@@ -323,46 +282,19 @@
                     android:orientation="horizontal"
                     android:weightSum="6">
 
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/menu_j"-->
-                    <!--                                android:layout_margin="5dp"-->
-                    <!--                                android:layout_width="50dp"-->
-                    <!--                                android:background="@drawable/selector_keyboard_item"-->
-                    <!--                                -->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                -->
-                    <!--                                android:gravity="center"-->
-                    <!--                                android:text="J" />-->
-
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center" />
 
                     <TextView
                         android:layout_margin="10dp"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-
-
-                        android:gravity="center" />
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/menu_k"-->
-                    <!--                                android:layout_width="50dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_margin="5dp"-->
-                    <!--                                android:background="@drawable/selector_keyboard_item"-->
-                    <!--                                -->
-                    <!--                                -->
-                    <!--                                android:gravity="center"-->
-                    <!--                                android:text="K" />-->
-                    <TextView
-                        android:layout_margin="10dp"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-
-
                         android:gravity="center" />
                     <TextView
                         android:layout_width="50dp"
-
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         />
@@ -404,7 +336,6 @@
                 android:layout_gravity="center"
                 android:background="@drawable/selector_selanjutnya"
                 android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
                 android:textColor="#000000" />
         </LinearLayout>
 

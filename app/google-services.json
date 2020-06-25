@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "461396721946",
+    "firebase_url": "https://portal-9bccb.firebaseio.com",
+    "project_id": "portal-9bccb",
+    "storage_bucket": "portal-9bccb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461396721946:android:1e3d5ff81fa5c00eeb2ca3",
+        "android_client_info": {
+          "package_name": "com.saku.portalsatpam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461396721946-gb6376s2udiqbpegc0vgdua05lk205gf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa4OTd1ALR-gQGhayYO8V-4LvuFLIizAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461396721946-gb6376s2udiqbpegc0vgdua05lk205gf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -31,16 +31,19 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         preferences.setPreferences(this)
+        overridePendingTransition(R.anim.slide_from_left
+                , R.anim.slide_to_right
+        )
         initData()
         menu_masuk.animate()
     menu_masuk.setOnClickListener {
-            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this,NeinActivity::class.java)
 //            intent.putExtra("menu","empty")
             startActivity(intent)
+//            overridePendingTransition(R.anim.slide_from_left,
+//                R.anim.slide_to_right);
         }
         menu_keluar.setOnClickListener {
-            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this,KeluarActivity::class.java)
             startActivity(intent)
         }

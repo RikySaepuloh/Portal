@@ -13,6 +13,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
 import com.saku.portalsatpam.fragments.FragmentKeperluan
+import com.saku.portalsatpam.fragments.FragmentPenghuni
+import com.saku.portalsatpam.fragments.FragmentSelesai
+import com.saku.portalsatpam.fragments.FragmentTujuan
 import kotlinx.android.synthetic.main.activity_nein.*
 
 
@@ -41,7 +44,9 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
                     imgPath = image
                     Toast.makeText(this@NeinActivity, image, Toast.LENGTH_SHORT).show()
                     Glide.with(this@NeinActivity).load(image).into(identitas)
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentSelesai()).commitAllowingStateLoss()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout,
+                        FragmentSelesai()
+                    ).commitAllowingStateLoss()
                     card_keperluan.isEnabled = false
                     card_tujuan.isEnabled = false
                     card_penghuni.isEnabled = false
@@ -49,7 +54,9 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
                 }
                 intent.hasExtra("back") -> {
                     resetBG()
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentPenghuni()).commitAllowingStateLoss()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout,
+                        FragmentPenghuni()
+                    ).commitAllowingStateLoss()
                     card_penghuni.background = ContextCompat.getDrawable(this@NeinActivity,R.drawable.content_menu_selected)
                     n4.setImageResource(R.drawable.n4_false)
                     stat--
@@ -58,6 +65,12 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this@NeinActivity,MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -68,6 +81,9 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nein)
+        overridePendingTransition(R.anim.slide_from_right
+                 , R.anim.slide_to_left
+                     );
 //        val fragment : FragmentKeperluan = FragmentKeperluan()
         supportFragmentManager.beginTransaction().add(R.id.frame_layout, FragmentKeperluan()).commit()
         LocalBroadcastManager.getInstance(this)
@@ -172,7 +188,9 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
             if(keperluan=="empty"){
                 Toast.makeText(this,"Isi menu ini terlebih dahulu",Toast.LENGTH_LONG).show()
             }else{
-                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentTujuan()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.frame_layout,
+                    FragmentTujuan()
+                ).commit()
                 resetBG()
                 card_tujuan.background = ContextCompat.getDrawable(this,R.drawable.content_menu_selected)
                 n2.setImageResource(R.drawable.n2_true)
@@ -182,7 +200,9 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
         card_penghuni.setOnClickListener{
             if(stat>1){
                 resetBG()
-                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, FragmentPenghuni()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.frame_layout,
+                    FragmentPenghuni()
+                ).commit()
                 card_penghuni.background = ContextCompat.getDrawable(this,R.drawable.content_menu_selected)
                 n3.setImageResource(R.drawable.n3_true)
                 stat++
