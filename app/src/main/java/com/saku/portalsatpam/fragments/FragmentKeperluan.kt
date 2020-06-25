@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.saku.portalsatpam.DataPasserKeperluan
-import com.saku.portalsatpam.FragmentTujuan
 import com.saku.portalsatpam.NeinActivity
 import com.saku.portalsatpam.R
 import kotlinx.android.synthetic.main.fragment_menu_keperluan.view.*

@@ -25,6 +25,10 @@ interface ApiService {
     fun satpam(
     ): Call<ResponseBody>
 
+    @GET("rumah")
+    fun rumah(
+    ): Call<ResponseBody>
+
     @FormUrlEncoded
     @POST("approval/app")
     fun approval(

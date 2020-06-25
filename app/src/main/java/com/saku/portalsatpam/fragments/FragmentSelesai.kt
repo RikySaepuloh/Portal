@@ -1,4 +1,4 @@
-package com.saku.portalsatpam
+package com.saku.portalsatpam.fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -23,6 +23,9 @@ import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
+import com.saku.portalsatpam.MainActivity
+import com.saku.portalsatpam.NeinActivity
+import com.saku.portalsatpam.R
 import kotlinx.android.synthetic.main.activity_selesai_masuk.view.selesai
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.*
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.view.*
@@ -32,23 +35,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
-
 class FragmentSelesai : Fragment() {
-//    private var param1: String? = null
-//    private var param2: String? = null
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-////        arguments?.let {
-////            param1 = it.getString(ARG_PARAM1)
-////            param2 = it.getString(ARG_PARAM2)
-////        }
-//    }
 
     private lateinit var myview: View
 //    lateinit var dataPasser: DataPasserKeperluan
@@ -133,7 +120,7 @@ class FragmentSelesai : Fragment() {
 
             override fun printingOrderSentSuccessfully() {
                 Toast.makeText(context, "Order sent to printer", Toast.LENGTH_SHORT).show()
-                val intent = Intent(context,MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
                 activity?.finishAffinity()
             }
@@ -249,26 +236,6 @@ class FragmentSelesai : Fragment() {
         if (requestCode == ScanningActivity.SCANNING_FOR_PRINTER && resultCode == Activity.RESULT_OK)
             printSomePrintable()
     }
-
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment FragmentTujuan.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            FragmentTujuan().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
 
 //    fun getBitmapFromURL(src: String?): Bitmap? {
 //        return try {
