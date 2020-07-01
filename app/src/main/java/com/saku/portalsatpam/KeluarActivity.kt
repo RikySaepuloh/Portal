@@ -4,21 +4,38 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.budiyev.android.codescanner.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.saku.portalsatpam.apihelper.UtilsApi
 import kotlinx.android.synthetic.main.activity_keluar.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.reflect.Type
 
 
 class KeluarActivity : AppCompatActivity() {
     private lateinit var codeScanner: CodeScanner
+    var preferences  = Preferences()
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_keluar)
+        preferences.setPreferences(this)
+        input.setOnClickListener {
+            val intent = Intent(this@KeluarActivity,InputActivity::class.java)
+            startActivity(intent)
+        }
 //        setSupportActionBar(toolbar)
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = window
@@ -48,11 +65,10 @@ class KeluarActivity : AppCompatActivity() {
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
-                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
+                initData(it.text)
+//                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
 
             }
-            val intent = Intent(this,SelesaiKeluarActivity::class.java)
-            startActivity(intent)
         }
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
             runOnUiThread {
@@ -65,5 +81,51 @@ class KeluarActivity : AppCompatActivity() {
             codeScanner.startPreview()
 //        }
 
+        
+        
     }
+
+    private fun initData(qrcode :String) {
+        val apiservice = UtilsApi().getAPIService(this@KeluarActivity)
+        apiservice?.tamuKeluar(qrcode)?.enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(
+                call: Call<ResponseBody?>,
+                response: Response<ResponseBody?>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        try {
+                            val obj = JSONObject(response.body()!!.string())
+                            val message = obj.optString("message")
+                            val noUrut = obj.optString("no_urut")
+                            Toast.makeText(this@KeluarActivity, message, Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@KeluarActivity,SelesaiKeluarActivity::class.java)
+                            intent.putExtra("no_urut",noUrut)
+                            startActivity(intent)
+                        } catch (e: Exception) {
+                        }
+                    }else{
+                        Toast.makeText(this@KeluarActivity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                } else if(response.code() == 422) {
+                    Toast.makeText(this@KeluarActivity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 401){
+                    val intent = Intent(this@KeluarActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    preferences.preferencesLogout()
+                    finish()
+                    Toast.makeText(this@KeluarActivity, "Sesi telah berakhir, silahkan login kembali", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 403){
+                    Toast.makeText(this@KeluarActivity, "Unauthorized", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 404){
+                    Toast.makeText(this@KeluarActivity, "Terjadi kesalahan server", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                Toast.makeText(this@KeluarActivity, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 }

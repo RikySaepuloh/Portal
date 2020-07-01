@@ -42,7 +42,7 @@ class PantauActivity : AppCompatActivity() {
     private fun initData() {
         refreshLayout.isRefreshing = true
         val apiservice = UtilsApi().getAPIService(this@PantauActivity)
-        apiservice?.tamuMasuk()?.enqueue(object : Callback<ResponseBody?> {
+        apiservice?.dataTamu()?.enqueue(object : Callback<ResponseBody?> {
             override fun onResponse(
                 call: Call<ResponseBody?>,
                 response: Response<ResponseBody?>

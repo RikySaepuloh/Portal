@@ -13,7 +13,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="20dp"
         android:contentDescription="Scan Bluetooth"
-        android:src="@drawable/ic_tunggu"/>
+        android:src="@drawable/ic_bluetooth_searching_black_24dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,13 +21,14 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Pengunjung"
-            android:layout_marginBottom="24dp"
-            android:textSize="30sp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/no_pengunjung"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:text="Pengunjung"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            android:textSize="30sp"/>-->
         <ImageView
             android:id="@+id/qrcode"
             android:layout_width="250dp"

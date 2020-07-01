@@ -45,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 //                // do something else
 //            }
             val intent = Intent(this@LoginActivity,LoginScanActivity::class.java)
+            intent.putExtra("params","login")
             startActivity(intent)
         }
     }

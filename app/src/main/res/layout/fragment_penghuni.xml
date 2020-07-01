@@ -6,17 +6,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.FragmentPenghuni">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:clipToPadding="false"
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:text="Tidak ada data ditemukan" />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
         android:paddingLeft="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="25dp"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
-        android:overScrollMode="never"
         android:paddingRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:clipToPadding="false"
+
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

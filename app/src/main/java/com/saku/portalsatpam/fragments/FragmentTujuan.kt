@@ -1,17 +1,23 @@
 package com.saku.portalsatpam.fragments
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.saku.portalsatpam.DataPasserKeperluan
-import com.saku.portalsatpam.NeinActivity
-import com.saku.portalsatpam.R
-import com.saku.portalsatpam.vibrate
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.saku.portalsatpam.*
+import com.saku.portalsatpam.apihelper.UtilsApi
+import com.saku.portalsatpam.models.ModelPaket
+import com.saku.portalsatpam.models.ModelRumah
 import kotlinx.android.synthetic.main.fragment_tujuan.view.*
 import kotlinx.android.synthetic.main.fragment_tujuan.view.delete
 import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_0
@@ -31,11 +37,19 @@ import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_d
 import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_e
 import kotlinx.android.synthetic.main.fragment_tujuan.view.menu_slash
 import kotlinx.android.synthetic.main.fragment_tujuan.view.bs_tujuan
+import okhttp3.ResponseBody
+import org.json.JSONArray
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.reflect.Type
 
 class FragmentTujuan : Fragment() {
 
     private lateinit var myview: View
-    lateinit var dataPasser: DataPasserKeperluan
+    private lateinit var dataPasser: DataPasserKeperluan
+    private var preferences  = Preferences()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +57,7 @@ class FragmentTujuan : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         myview = inflater.inflate(R.layout.fragment_tujuan, container, false)
+        context?.let { preferences.setPreferences(it) }
         return myview
     }
 
@@ -129,21 +144,78 @@ class FragmentTujuan : Fragment() {
             context?.vibrate(longArrayOf(0, 150))
         }
         myview.selanjutnya.setOnClickListener {
-            if(myview.bs_tujuan.text.toString()==""||myview.bs_tujuan.text.toString()==null||myview.bs_tujuan.text.toString().isEmpty()||myview.bs_tujuan.text.toString().length<4){
+            if(myview.bs_tujuan.text.toString()=="" || myview.bs_tujuan.text.toString().isEmpty() || myview.bs_tujuan.text.toString().length<4){
                 Toast.makeText(context,"Masukkan tujuan terlebih dahulu!",Toast.LENGTH_LONG).show()
             }else{
-                passData(myview.bs_tujuan.text.toString())
-                (activity as NeinActivity?)?.changeFragment(FragmentPenghuni())
+                initData()
             }
         }
     }
+
+
+
+    private fun initData() {
+        myview.warning.visibility = View.INVISIBLE
+        val apiservice = context?.let { UtilsApi().getAPIService(it) }
+        apiservice?.rumah()?.enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(
+                call: Call<ResponseBody?>,
+                response: Response<ResponseBody?>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        try {
+                            val obj = JSONObject(response.body()!!.string())
+                            val gson = Gson()
+                            val type: Type = object :
+                                TypeToken<ArrayList<ModelRumah?>?>() {}.type
+                            val datapaket: ArrayList<ModelRumah> =
+                                gson.fromJson(obj.optString("data"), type)
+                            for(i in 0 until datapaket.size){
+//                                Log.e(TAG,datapaket[i].kodeRumah)
+                                if (datapaket[i].kodeRumah.equals(myview.bs_tujuan.text.toString())){
+                                    myview.warning.visibility = View.INVISIBLE
+                                    passData(myview.bs_tujuan.text.toString())
+                                    (activity as NeinActivity?)?.changeFragment(FragmentPenghuni())
+                                    break
+                                }else{
+                                    myview.warning.visibility = View.VISIBLE
+                                }
+                            }
+                        } catch (e: Exception) {
+
+                        }
+                    }else{
+                        Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                } else if(response.code() == 422) {
+                    Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 401){
+                    val intent = Intent(context, LoginActivity::class.java)
+                    startActivity(intent)
+                    preferences.preferencesLogout()
+                    activity?.finish()
+                    Toast.makeText(context, "Sesi telah berakhir, silahkan login kembali", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 403){
+                    Toast.makeText(context, "Unauthorized", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 404){
+                    Toast.makeText(context, "Terjadi kesalahan server", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         dataPasser = context as DataPasserKeperluan
     }
 
-    fun passData(data: String){
+    private fun passData(data: String){
         dataPasser.onDataPasserKeperluan(data,"tujuan")
     }
 

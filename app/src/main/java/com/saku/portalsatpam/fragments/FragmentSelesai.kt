@@ -23,12 +23,22 @@ import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
-import com.saku.portalsatpam.MainActivity
-import com.saku.portalsatpam.NeinActivity
-import com.saku.portalsatpam.R
+import com.saku.portalsatpam.*
+import com.saku.portalsatpam.apihelper.UtilsApi
 import kotlinx.android.synthetic.main.activity_selesai_masuk.view.selesai
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.*
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.view.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 import java.io.InputStream
 import java.net.URL
 import java.text.SimpleDateFormat
@@ -37,12 +47,20 @@ import kotlin.collections.ArrayList
 
 class FragmentSelesai : Fragment() {
 
+    var preferences  = Preferences()
     private lateinit var myview: View
 //    lateinit var dataPasser: DataPasserKeperluan
     private var printing : Printing? = null
     var penghunirumah : String? = null
     var tujuan : String? = null
+    var keperluanSingkat : String? = null
     var keperluan : String? = null
+    var blok:String? = null
+    var noPengunjung : String? = null
+    var noUrut : String? = null
+    var norumah :String? = null
+    var nik :String? = null
+    var image :String? = null
     var bitmap : Bitmap? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +69,7 @@ class FragmentSelesai : Fragment() {
         // Inflate the layout for this fragment
         myview = inflater.inflate(R.layout.fragment_selesai_masuk, container, false)
         Printooth.init(context!!)
+        preferences.setPreferences(context!!)
         try {
             if (Printooth.hasPairedPrinter())
                 printing = Printooth.printer()
@@ -58,8 +77,31 @@ class FragmentSelesai : Fragment() {
         }
         if((activity as NeinActivity).penghuni!="-"){
             penghunirumah = (activity as NeinActivity).penghuni.toString()
+            image = (activity as NeinActivity).imgPath.toString()
             tujuan = (activity as NeinActivity).tujuan.toString()
             keperluan = (activity as NeinActivity).keperluan.toString()
+            when ((activity as NeinActivity).keperluan.toString()){
+                "Makanan" -> {
+                    keperluanSingkat="MKN"
+                }
+                "OJOL" -> {
+                    keperluanSingkat="OJL"
+                }
+                "Jualan" -> {
+                    keperluanSingkat="JLN"
+                }
+                "Paket" -> {
+                    keperluanSingkat="PKT"
+                }
+                "Teknisi" -> {
+                    keperluanSingkat="TSK"
+                }
+                "Tamu" -> {
+                    keperluanSingkat="TM"
+                }
+            }
+//            keperluan = (activity as NeinActivity).keperluan.toString()
+            nik = (activity as NeinActivity).nikpenghuni.toString()
         }
         return myview
     }
@@ -76,6 +118,19 @@ class FragmentSelesai : Fragment() {
             } catch (e: Exception) {
             }
         }
+        blok = tujuan?.substringBefore("-")
+        norumah = tujuan?.substringAfter("-")
+//        val arrBlok = arrayListOf(blok)
+        val arrNoRumah : MutableList<RequestBody> = ArrayList()
+        arrNoRumah.add(toRequestBody(norumah!!))
+        val arrNama : MutableList<RequestBody> = ArrayList()
+        arrNama.add(toRequestBody(penghunirumah!!))
+        val arrNik: MutableList<RequestBody> = ArrayList()
+        arrNik.add(toRequestBody(nik!!))
+        val arrBlok: MutableList<RequestBody> = ArrayList()
+        arrBlok.add(toRequestBody(blok!!))
+        image?.let { initData(arrNik,arrBlok,arrNoRumah,arrNama, it) }
+//        Toast.makeText(context, "$blok $norumah $nik $keperluan",Toast.LENGTH_SHORT).show()
 
 //        Glide.with(context!!).load(url).into(myview.qrcode)
 //        val url =
@@ -86,9 +141,8 @@ class FragmentSelesai : Fragment() {
 //        val mmm="https://cdn.sinarharapan.co/foto/2020/03/19/440-logo_tokopedia_unicorn_startup__tagar-800x450.jpg"
 //        Glide.with(context!!).load(mrrr).placeholder(android.R.drawable.progress_indeterminate_horizontal).error(android.R.drawable.ic_dialog_alert).into(myview.qrcode)
 //        val da = "https://boofcv.org/images/3/35/Example_rendered_qrcode.png"
-        val da = " https://devsai-s3.s3-ap-southeast-1.amazonaws.com/rtrw/qrcode-5ef2cc969371c.png"
-        DownloadImageTask((myview.qrcode))
-            .execute("https://devsai-s3.s3-ap-southeast-1.amazonaws.com/rtrw/qrcode-5ef2cc969371c.png");
+//        val da = " https://devsai-s3.s3-ap-southeast-1.amazonaws.com/rtrw/qrcode-5ef2cc969371c.png"
+
 
 //        Glide.with(context!!)
 //            .asBitmap()
@@ -175,27 +229,17 @@ class FragmentSelesai : Fragment() {
             .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
             .setNewLinesAfter(1)
             .build())
+        val currentDate: String =
+            SimpleDateFormat("dd-MM-yyyy, HH:mm:ss", Locale.getDefault()).format(Date())
         add(
             TextPrintable.Builder()
-            .setText("No Pengunjung : 72")
-            .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
-            .setNewLinesAfter(1)
-            .build())
+                .setText(currentDate)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .setNewLinesAfter(2)
+                .build())
         add(
             TextPrintable.Builder()
-            .setText("Keperluan : $keperluan")
-            .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
-            .setNewLinesAfter(1)
-            .build())
-        add(
-            TextPrintable.Builder()
-            .setText("Tujuan : $tujuan")
-            .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
-            .setNewLinesAfter(1)
-            .build())
-        add(
-            TextPrintable.Builder()
-            .setText("Penghuni : $penghunirumah")
+            .setText("$tujuan / $keperluan / $penghunirumah")
             .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
             .setNewLinesAfter(2)
             .build())
@@ -206,19 +250,10 @@ class FragmentSelesai : Fragment() {
         }
         add(
             TextPrintable.Builder()
-                .setText("TM-0001")
-                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
-                .setNewLinesAfter(2)
-                .build())
-        val currentDate: String =
-            SimpleDateFormat("dd-MM-yyyy, HH:mm:ss", Locale.getDefault()).format(Date())
-        add(
-            TextPrintable.Builder()
-                .setText(currentDate)
+                .setText(noUrut.toString())
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .setNewLinesAfter(1)
                 .build())
-
 //        val stream = ByteArrayOutputStream()
 //        getBitmapFromURL("https://api.simkug.com/api/portal/storage/qrcode-5eec213899ffa.png")?.compress(Bitmap.CompressFormat.PNG, 90, stream)
 //        val images = stream.toByteArray()
@@ -263,7 +298,78 @@ class FragmentSelesai : Fragment() {
         }
         return Bitmap.createScaledBitmap(image, width, height, true)
     }
+
+    private fun initData(
+        nik: MutableList<RequestBody>,
+        blok: MutableList<RequestBody>, norumah: MutableList<RequestBody>,
+        penghuni: MutableList<RequestBody>,
+        image:String) {
+
+        val file = File(image)
+        val fileReqBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val imagedata: MultipartBody.Part =
+            MultipartBody.Part.createFormData("ktp", file.name, fileReqBody)
+        val apiservice = context?.let { UtilsApi().getAPIService(it) }
+        keperluanSingkat?.let {
+            apiservice?.tamuMasuk(imagedata, it,penghuni,nik,norumah,blok)?.enqueue(object : Callback<ResponseBody?> {
+                override fun onResponse(
+                    call: Call<ResponseBody?>,
+                    response: Response<ResponseBody?>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body() != null) {
+                            try {
+                                val obj = JSONObject(response.body()!!.string())
+                                noUrut = obj.optString("no_urut")
+//                                myview.no_pengunjung.text = "$noUrut"
+                                noPengunjung = obj.optString("no_tamu")
+                                val message = obj.optString("message")
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                val qrcode = obj.optString("qrcode")
+                                DownloadImageTask((myview.qrcode))
+                                    .execute(qrcode)
+//                                DownloadImageTask((myview.qrcode))
+//                                    .execute("https://devsai-s3.s3-ap-southeast-1.amazonaws.com/rtrw/qrcode-5ef2cc969371c.png");
+//                                val gson = Gson()
+//                                val type: Type = object :
+//                                    TypeToken<ArrayList<ModelPaket?>?>() {}.type
+//                                val datapaket: ArrayList<ModelPaket> =
+//                                    gson.fromJson(obj.optString("data"), type)
+
+                            } catch (e: Exception) {
+
+                            }
+                        }else{
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    } else if(response.code() == 422) {
+                        Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    } else if(response.code() == 401){
+                        val intent = Intent(context, LoginActivity::class.java)
+                        startActivity(intent)
+                        preferences.preferencesLogout()
+                        activity?.finish()
+                        Toast.makeText(context, "Sesi telah berakhir, silahkan login kembali", Toast.LENGTH_SHORT).show()
+                    } else if(response.code() == 403){
+                        Toast.makeText(context, "Unauthorized", Toast.LENGTH_SHORT).show()
+                    } else if(response.code() == 404){
+                        Toast.makeText(context, "Terjadi kesalahan server", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+    fun toRequestBody(value: String): RequestBody {
+        return value.toRequestBody("text/plain".toMediaTypeOrNull())
+    }
+
 }
+
 
 private class DownloadImageTask(bmImage: ImageView) :
     AsyncTask<String?, Void?, Bitmap?>() {

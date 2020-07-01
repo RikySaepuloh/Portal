@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -29,11 +30,12 @@ import java.lang.reflect.Type
 
 class PaketActivity : AppCompatActivity() {
     lateinit var behavior : BottomSheetBehavior<View>
-    private var data : ArrayList<ModelPaket> = ArrayList()
+//    private var data : ArrayList<ModelPaket> = ArrayList()
     private lateinit var myadapter : PaketAdapter
     var datakode :String? = null
     var datatujuan :String? = null
     var datapenghuni:String? = null
+    var image:String? = null
     var preferences  = Preferences()
 
     private val mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -42,9 +44,11 @@ class PaketActivity : AppCompatActivity() {
                 datakode = ": "+intent.getStringExtra("kode")
                 datatujuan = ": "+intent.getStringExtra("tujuan")
                 datapenghuni = ": "+intent.getStringExtra("penghuni")
+                image = intent.getStringExtra("image")
                 bs_kode.text = datakode
                 bs_tujuan.text = datatujuan
                 bs_penghuni.text = datapenghuni
+                Glide.with(this@PaketActivity).load(image).into(paket_img)
                 if(behavior.state != BottomSheetBehavior.STATE_EXPANDED){
                     behavior.state = BottomSheetBehavior.STATE_EXPANDED
                     overlay.visibility = View.VISIBLE
@@ -75,6 +79,7 @@ class PaketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paket)
         preferences.setPreferences(this)
+
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         recyclerview.layoutManager = layoutManager
 //        data.add(ModelPaket("86","D4/7","Riky Saepuloh"))
@@ -94,15 +99,15 @@ class PaketActivity : AppCompatActivity() {
 //        }
 
 
-        search.setOnQueryTextFocusChangeListener { v, hasFocus ->
-            if (hasFocus){
-                search.setOnSearchClickListener {myadapter.add(data,clickable = false) }
-//                Toast.makeText(this,"Barang telah diterima",Toast.LENGTH_LONG).show()
-            }else{
-                search.setOnSearchClickListener {myadapter.add(data,clickable = true) }
-//                Toast.makeText(this,"asasasa",Toast.LENGTH_LONG).show()
-            }
-        }
+//        search.setOnQueryTextFocusChangeListener { v, hasFocus ->
+//            if (hasFocus){
+//                search.setOnSearchClickListener {myadapter.add(data,clickable = false) }
+////                Toast.makeText(this,"Barang telah diterima",Toast.LENGTH_LONG).show()
+//            }else{
+//                search.setOnSearchClickListener {myadapter.add(data,clickable = true) }
+////                Toast.makeText(this,"asasasa",Toast.LENGTH_LONG).show()
+//            }
+//        }
 
         refreshLayout.setOnRefreshListener {
             initData()
@@ -167,7 +172,8 @@ class PaketActivity : AppCompatActivity() {
             }else{
                 behavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
-            Toast.makeText(this,"Barang telah diterima",Toast.LENGTH_LONG).show()
+            paketAccepted(datakode)
+//            Toast.makeText(this,"Barang telah diterima",Toast.LENGTH_LONG).show()
         }
     }
 
@@ -188,10 +194,10 @@ class PaketActivity : AppCompatActivity() {
                                 TypeToken<ArrayList<ModelPaket?>?>() {}.type
                             val datapaket: ArrayList<ModelPaket> =
                                 gson.fromJson(obj.optString("data"), type)
-                            myadapter =
-                                PaketAdapter(
-                                    datapaket
-                                )
+//                            myadapter =
+//                                PaketAdapter(
+//                                    datapaket
+//                                )
                             myadapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
                                 override fun onChanged() {
                                     super.onChanged()
@@ -252,6 +258,50 @@ class PaketActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
                 Toast.makeText(this@PaketActivity, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
                 refreshLayout.isRefreshing = false
+            }
+        })
+    }
+
+    private fun paketAccepted(id_paket:String?) {
+        val apiservice = UtilsApi().getAPIService(this@PaketActivity)
+        apiservice?.paketAccepted(id_paket)?.enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(
+                call: Call<ResponseBody?>,
+                response: Response<ResponseBody?>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        try {
+                            val obj = JSONObject(response.body()!!.string())
+                            try {
+                                val message = obj.optString("message")
+//                                Toast.makeText(this@PaketActivity, message, Toast.LENGTH_SHORT).show()
+                            } catch (e: Exception) {
+                            }
+
+                        } catch (e: Exception) {
+
+                        }
+                    }else{
+                        Toast.makeText(this@PaketActivity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                } else if(response.code() == 422) {
+                    Toast.makeText(this@PaketActivity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 401){
+                    val intent = Intent(this@PaketActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    preferences.preferencesLogout()
+                    finish()
+                    Toast.makeText(this@PaketActivity, "Sesi telah berakhir, silahkan login kembali", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 403){
+                    Toast.makeText(this@PaketActivity, "Unauthorized", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 404){
+                    Toast.makeText(this@PaketActivity, "Terjadi kesalahan server", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                Toast.makeText(this@PaketActivity, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
             }
         })
     }

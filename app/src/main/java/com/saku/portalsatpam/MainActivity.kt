@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.saku.portalsatpam.apihelper.UtilsApi
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,9 +32,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         preferences.setPreferences(this)
-        overridePendingTransition(R.anim.slide_from_left
-                , R.anim.slide_to_right
-        )
+
+        overridePendingTransition(R.anim.slide_from_right
+            , R.anim.slide_to_left
+        );
         initData()
         menu_masuk.animate()
     menu_masuk.setOnClickListener {
@@ -82,7 +84,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                             for (counter in 0 until data.length()) {
                                 val jsonObj: JSONObject = data.getJSONObject(counter)
                                 val mydata = jsonObj.optString("nama")
+                                val foto = jsonObj.optString("foto")
                                 profile_name.text = mydata
+                                Glide.with(this@MainActivity).load(foto).into(profile_image)
+
                             }
 //                            }
 //                            val gson = Gson()
@@ -126,11 +131,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 //                startActivity(intent)
 //            }
             R.id.nav_paket -> {
-                val intent = Intent(this,PaketActivity::class.java)
+                val intent = Intent(this,Paket2Activity::class.java)
                 startActivity(intent)
             }
             R.id.nav_pantau -> {
-                val intent = Intent(this,PantauActivity::class.java)
+                val intent = Intent(this,TamuActivity::class.java)
                 startActivity(intent)
             }
         }

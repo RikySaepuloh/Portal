@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet_tujuan"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginTop="50dp"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    android:layout_marginLeft="40dp"
-    android:layout_marginRight="40dp"
+    android:layout_marginLeft="80dp"
+    android:layout_marginRight="80dp"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
     <androidx.cardview.widget.CardView
@@ -42,24 +43,27 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginLeft="100dp"
                 android:focusableInTouchMode="true"
                 android:focusedByDefault="true"
                 android:orientation="vertical">
                 <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchview_tujuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:queryHint="Cari Alamat"
+                    app:searchIcon="@null"
                     android:background="@drawable/searchview_background"
                     app:iconifiedByDefault="false"
                     />
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginTop="12dp"
-                    android:id="@+id/recyclerview"
+                    android:id="@+id/recyclerview_tujuan"
+                    android:nestedScrollingEnabled="true"
                     android:overScrollMode="ifContentScrolls"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_height="match_parent"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

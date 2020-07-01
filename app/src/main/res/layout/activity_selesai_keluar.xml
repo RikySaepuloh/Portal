@@ -37,9 +37,10 @@
             android:layout_marginBottom="24dp"
             android:textSize="30sp"/>
         <TextView
+            android:id="@+id/no_urut"
             android:layout_width="250dp"
-            android:textSize="56sp"
-            android:text="72"
+            android:textSize="24sp"
+            android:text="-"
             android:gravity="center"
             android:layout_marginBottom="12dp"
             android:layout_height="100dp"/>

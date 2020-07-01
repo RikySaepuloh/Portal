@@ -1,49 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:background="@drawable/selector_list_press"
+    android:id="@+id/data_layout"
     android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/durasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="24dp"
+        android:textColor="@color/red"
+        android:text="-"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/data_layout"
-        android:weightSum="9"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:weightSum="2"
+        android:paddingLeft="60dp"
+        android:paddingRight="24dp"
+        android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/no"
+            android:id="@+id/tujuan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="-"/>
+            android:text="-"
+            android:layout_weight="1"/>
         <TextView
-            android:id="@+id/kode"
+            android:id="@+id/keperluan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="-"/>
-        <TextView
-            android:id="@+id/bs_tujuan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="-"/>
-        <TextView
-            android:id="@+id/bs_keperluan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="-"/>
-        <TextView
-            android:id="@+id/durasi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textColor="@android:color/holo_red_dark"
-            android:text="-"/>
+            android:gravity="end"
+            android:text="-"
+            android:layout_weight="1"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#b0b0b0"/>
+
 </LinearLayout>

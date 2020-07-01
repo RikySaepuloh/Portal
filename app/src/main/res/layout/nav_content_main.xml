@@ -23,26 +23,40 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="Portal Satpam"/>
 
                 <TextView
                     android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/profile_image"
-                    android:layout_toStartOf="@id/profile_image"
+                    android:layout_marginEnd="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/card_image"
                     android:text="Nama Lengkap"/>
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    app:civ_border_width="1dp"
-                    android:layout_marginRight="20dp"
-                    app:civ_border_color="#000000"
-                    android:src="@drawable/ic_person_black_30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_image"
+                    android:layout_width="wrap_content"
+                    app:cardCornerRadius="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/ic_person_black_30dp"/>
+                </androidx.cardview.widget.CardView>
+<!--                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                    android:id="@+id/profile_image"-->
+<!--                    android:layout_width="25dp"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    app:civ_border_width="1dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    app:civ_border_color="#000000"-->
+<!--                    android:src="@drawable/ic_person_black_30dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:layout_alignParentEnd="true"/>-->
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 

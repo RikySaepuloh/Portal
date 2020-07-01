@@ -5,14 +5,14 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".MainActivity"
+        <activity android:name=".TamuActivity"></activity>
+        <activity android:name=".PaketSearchActivity" />
+        <activity
+            android:name=".Paket2Activity"
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".InputActivity"
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
         <activity
@@ -52,19 +63,6 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".IdentitasActivity"
-            android:screenOrientation="landscape"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ProsesActivity"
-            android:screenOrientation="landscape"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".KeperluanActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".MenuActivity"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
         <activity

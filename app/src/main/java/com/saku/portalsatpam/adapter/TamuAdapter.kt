@@ -20,19 +20,23 @@ class TamuAdapter(private val data: ArrayList<ModelTamu>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: NamaKelompokViewHolder, position: Int) {
-        val pos = position+1
-        holder.no.text = pos.toString()
-        holder.keperluan.text = data[position].keperluan
-        holder.tujuan.text = data[position].rumah
-        holder.kode.text = data[position].noTamu
-        holder.durasi.text = data[position].selisih
-        holder.card.setOnClickListener {
-//            ctx?.//vibrate(longArrayOf(0, 350))
-//            Toast.makeText(ctx!!,"Sentuh icon search diatas untuk memunculkan Menu",Toast.LENGTH_LONG).show()
-//            ctx?.//vibrate(longArrayOf(0, 350))
-//            val intent = Intent(ctx, IdentitasActivity::class.java)
-//            ctx?.startActivity(intent)
-        }
+//        val pos = position+1
+//        holder.no.text = pos.toString()
+//        if(data[position].keperluan=="MKKN"){
+//            holder.keperluan.text = "MAKANAN"
+//        }else{
+//            holder.keperluan.text = data[position].keperluan
+//        }
+//        holder.tujuan.text = data[position].rumah
+//        holder.kode.text = data[position].idTamu
+//        holder.durasi.text = data[position].selisih
+//        holder.card.setOnClickListener {
+////            ctx?.//vibrate(longArrayOf(0, 350))
+////            Toast.makeText(ctx!!,"Sentuh icon search diatas untuk memunculkan Menu",Toast.LENGTH_LONG).show()
+////            ctx?.//vibrate(longArrayOf(0, 350))
+////            val intent = Intent(ctx, IdentitasActivity::class.java)
+////            ctx?.startActivity(intent)
+//        }
         
     }
 
@@ -41,12 +45,12 @@ class TamuAdapter(private val data: ArrayList<ModelTamu>) : RecyclerView.Adapter
     }
 
     inner class NamaKelompokViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val card: LinearLayout = itemView.findViewById<View>(R.id.data_layout) as LinearLayout
-        val no: TextView = itemView.findViewById<View>(R.id.no) as TextView
-        val kode: TextView = itemView.findViewById<View>(R.id.kode) as TextView
-        val durasi: TextView = itemView.findViewById<View>(R.id.durasi) as TextView
-        val tujuan: TextView = itemView.findViewById<View>(R.id.bs_tujuan) as TextView
-        val keperluan: TextView = itemView.findViewById<View>(R.id.bs_keperluan) as TextView
+//        val card: LinearLayout = itemView.findViewById<View>(R.id.data_layout) as LinearLayout
+////        val no: TextView = itemView.findViewById<View>(R.id.no) as TextView
+//        val kode: TextView = itemView.findViewById<View>(R.id.kode) as TextView
+//        val durasi: TextView = itemView.findViewById<View>(R.id.durasi) as TextView
+//        val tujuan: TextView = itemView.findViewById<View>(R.id.bs_tujuan) as TextView
+//        val keperluan: TextView = itemView.findViewById<View>(R.id.bs_keperluan) as TextView
     }
 
 }

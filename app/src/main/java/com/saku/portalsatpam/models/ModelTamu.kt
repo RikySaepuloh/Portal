@@ -26,5 +26,11 @@ data class ModelTamu(
 	val noTamu: String? = null,
 
 	@field:SerializedName("rumah")
-	val rumah: String? = null
+	val rumah: String? = null,
+
+	@field:SerializedName("ktp")
+	val ktp: String? = null,
+
+	@field:SerializedName("nik")
+	val nik: String? = null
 )
