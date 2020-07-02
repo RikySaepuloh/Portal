@@ -75,13 +75,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:src="@drawable/ic_close_white_24dp"/>
-        <ImageView
-            android:id="@+id/input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_keyboard_black_24dp"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/input"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="30dp"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:src="@drawable/ic_keyboard_black_24dp"/>-->
 <!--        <TextView-->
 <!--            android:id="@+id/title"-->
 <!--            android:layout_width="wrap_content"-->
@@ -92,6 +92,26 @@
 <!--            android:text="Barcode Pengunjung"-->
 <!--            android:layout_marginBottom="12dp"-->
 <!--            android:textSize="30sp"/>-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:id="@+id/input"
+            android:background="@drawable/button_background_pressed">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                app:srcCompat="@drawable/ic_keyboard_white_18dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Masukkan Kode QR Manual"/>
+        </LinearLayout>
         <TextView
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"

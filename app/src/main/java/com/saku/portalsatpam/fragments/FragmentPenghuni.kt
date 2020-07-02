@@ -62,6 +62,7 @@ class FragmentPenghuni : Fragment() {
         if((activity as NeinActivity).tujuan.toString()!="-"){
             kodeRumah =(activity as NeinActivity).tujuan.toString()
         }
+        myview.refreshLayout.setOnRefreshListener { initData() }
         myview.recyclerview.layoutManager = GridLayoutManager(context,3)
         myview.recyclerview.adapter = adapter
             initData()
@@ -79,6 +80,7 @@ class FragmentPenghuni : Fragment() {
 
 
     private fun initData() {
+        myview.empty_view.visibility=View.GONE
         myview.refreshLayout.isRefreshing = true
         val apiservice = UtilsApi().getAPIService(context!!)
         kodeRumah?.let {
@@ -104,6 +106,9 @@ class FragmentPenghuni : Fragment() {
                                 myview.recyclerview.adapter = adapter
                                 myview.refreshLayout.isRefreshing = false
                                 myview.empty_view.visibility=View.GONE
+                                if(obj.optString("message")=="Data Kosong!"){
+                                    myview.empty_view.visibility=View.VISIBLE
+                                }
                             } catch (e: Exception) {
                                 myview.empty_view.visibility=View.VISIBLE
                                 myview.recyclerview.visibility=View.GONE

@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     private fun initData() {
         val apiservice = UtilsApi().getAPIService(this@MainActivity)
-        apiservice?.satpam()?.enqueue(object : Callback<ResponseBody?> {
+        apiservice?.satpamAktif()?.enqueue(object : Callback<ResponseBody?> {
             override fun onResponse(
                 call: Call<ResponseBody?>,
                 response: Response<ResponseBody?>
@@ -79,23 +79,14 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     if (response.body() != null) {
                         try {
                             val obj = JSONObject(response.body()!!.string())
-                            val data = JSONArray(obj.optString("data"))
-//                            for(i in data){
+                            val data = JSONArray(obj.optString("user"))
                             for (counter in 0 until data.length()) {
                                 val jsonObj: JSONObject = data.getJSONObject(counter)
                                 val mydata = jsonObj.optString("nama")
                                 val foto = jsonObj.optString("foto")
                                 profile_name.text = mydata
                                 Glide.with(this@MainActivity).load(foto).into(profile_image)
-
                             }
-//                            }
-//                            val gson = Gson()
-//                            val type: Type = object :
-//                                TypeToken<ArrayList<ModelPaket?>?>() {}.type
-//                            val datapaket: ArrayList<ModelPaket> =
-//                                gson.fromJson(obj.optString("data"), type)
-
                         } catch (e: Exception) {
 
                         }

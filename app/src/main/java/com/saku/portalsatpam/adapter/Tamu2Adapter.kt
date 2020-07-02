@@ -29,6 +29,16 @@ class Tamu2Adapter(private val data: ArrayList<ModelTamu>) : RecyclerView.Adapte
         return NamaKelompokViewHolder(view)
     }
 
+    fun sortDescending(){
+        mFilteredList?.sortByDescending { it.tgljamIn }
+        notifyDataSetChanged()
+    }
+
+    fun sortAscending(){
+        mFilteredList?.sortBy { it.tgljamIn }
+        notifyDataSetChanged()
+    }
+
 //    fun add(mdata: ArrayList<ModelTamu>, clickable:Boolean){
 //        mFilteredList=mdata
 //        this.clickable=clickable

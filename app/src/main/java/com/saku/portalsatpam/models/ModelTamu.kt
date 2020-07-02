@@ -1,11 +1,16 @@
 package com.saku.portalsatpam.models
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
+
 
 data class ModelTamu(
 
 	@field:SerializedName("tgljam_in")
 	val tgljamIn: String? = null,
+//
+//	@field:SerializedName("tgljam_in")
+//	val tgljamInDate: Date? = null,
 
 	@field:SerializedName("nama")
 	val nama: String? = null,
@@ -34,3 +39,10 @@ data class ModelTamu(
 	@field:SerializedName("nik")
 	val nik: String? = null
 )
+//	:Comparable<ModelTamu> {
+//	override fun compareTo(other: ModelTamu): Int {
+//		if (tgljamInDate == null || other.tgljamInDate == null)
+//			return 0
+//		return tgljamInDate.compareTo(other.tgljamInDate)
+//	}
+//}

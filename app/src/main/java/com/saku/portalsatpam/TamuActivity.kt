@@ -4,10 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,13 +18,20 @@ import com.saku.portalsatpam.apihelper.UtilsApi
 import com.saku.portalsatpam.fragments.FragmentEmpty
 import com.saku.portalsatpam.fragments.FragmentTamu
 import com.saku.portalsatpam.models.ModelTamu
-import kotlinx.android.synthetic.main.activity_paket2.*
+import kotlinx.android.synthetic.main.activity_paket2.back
+import kotlinx.android.synthetic.main.activity_paket2.empty_view
+import kotlinx.android.synthetic.main.activity_paket2.filter_text
+import kotlinx.android.synthetic.main.activity_paket2.recyclerview
+import kotlinx.android.synthetic.main.activity_paket2.refreshLayout
+import kotlinx.android.synthetic.main.activity_paket2.search
+import kotlinx.android.synthetic.main.activity_tamu.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.reflect.Type
+import java.util.*
 
 class TamuActivity : AppCompatActivity() {
 
@@ -81,6 +88,16 @@ class TamuActivity : AppCompatActivity() {
         preferences.setPreferences(this)
         emptyFragment()
         back.setOnClickListener { super.onBackPressed() }
+        var ascending = true
+        sort_by.setOnClickListener {
+            if(ascending){
+                myadapter.sortAscending()
+                ascending=false
+            }else{
+                myadapter.sortDescending()
+                ascending=true
+            }
+        }
         search.setOnClickListener { val intent = Intent(this@TamuActivity, PaketSearchActivity::class.java)
             intent.putExtra("params","tamu")
             startActivity(intent) }
@@ -90,6 +107,7 @@ class TamuActivity : AppCompatActivity() {
         filter_text.setOnClickListener { resetFilter() }
         refreshLayout.setOnRefreshListener { initData() }
     }
+
 
     fun emptyFragment(){
         supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.fade_in,0).replace(R.id.frame_layout,

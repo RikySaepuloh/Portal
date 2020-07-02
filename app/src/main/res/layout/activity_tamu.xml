@@ -45,7 +45,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="12dp"
-                        app:srcCompat="@drawable/ic_bluetooth_searching_black_24dp"
+                        app:srcCompat="@drawable/ic_sort_by_24dp"
                         android:contentDescription="search"/>
                     <ImageView
                         android:id="@+id/search"

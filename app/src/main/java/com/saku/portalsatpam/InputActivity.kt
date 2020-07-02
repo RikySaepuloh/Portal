@@ -2,15 +2,14 @@ package com.saku.portalsatpam
 
 import `in`.aabhasjindal.otptextview.OTPListener
 import `in`.aabhasjindal.otptextview.OtpTextView
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -26,6 +25,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.reflect.Type
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class InputActivity : AppCompatActivity() {
@@ -34,14 +36,15 @@ class InputActivity : AppCompatActivity() {
     private var otpTextView2: OtpTextView? = null
     var qrcodeValue : String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input)
         preferences.setPreferences(this)
         otpTextView = findViewById(R.id.et_qrcode1)
         otpTextView2 = findViewById(R.id.et_qrcode2)
-        otpTextView?.requestFocusOTP()
+
+        initRekomendasi()
+
         otpTextView?.otpListener = object : OTPListener {
             override fun onInteractionListener() {
 
@@ -68,11 +71,46 @@ class InputActivity : AppCompatActivity() {
         back.setOnClickListener { super.onBackPressed() }
     }
 
-    fun mypopup(imagelink:String, context : Context){
-        val myDialog = Dialog(context)
-        myDialog.setContentView(R.layout.popup_ktp)
-//        Glide.with(this).load(imagelink).into(image_popup_ktp)
-        myDialog.show()
+    @SuppressLint("SimpleDateFormat")
+    fun initRekomendasi(){
+        val calendar = Calendar.getInstance()
+        val today = calendar.time
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
+        val tomorrow = calendar.time
+        calendar.add(Calendar.DAY_OF_YEAR, -2)
+        val yesterday = calendar.time
+        val dateFormat: DateFormat = SimpleDateFormat("yyyyMMdd")
+        val todayAsString: String = dateFormat.format(today)
+        val tomorrowAsString: String = dateFormat.format(tomorrow)
+        val yesterdayAsString: String = dateFormat.format(yesterday)
+
+        rek_yesterday.text = yesterdayAsString
+        rek_today.text = todayAsString
+        rek_tomorrow.text = tomorrowAsString
+
+        rek_yesterday.setOnClickListener {
+            et_qrcode1.setOTP(yesterdayAsString)
+            showKeyboard()
+        }
+        rek_today.setOnClickListener {
+            et_qrcode1.setOTP(todayAsString)
+            showKeyboard()
+        }
+        rek_tomorrow.setOnClickListener {
+            et_qrcode1.setOTP(tomorrowAsString)
+            showKeyboard()
+        }
+    }
+
+    private fun showKeyboard(){
+        otpTextView2?.setOTP("")
+        otpTextView2?.requestFocusOTP()
+        val imm: InputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view: View? = currentFocus
+        if (view != null) {
+            imm.showSoftInput(view, 0)
+        }
     }
 
     private fun searchTamu(qrcode:String) {

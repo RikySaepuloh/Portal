@@ -212,6 +212,8 @@ class TambahPaketActivity : AppCompatActivity() {
             //vibrate(longArrayOf(0, 350))
             if(bs_penghuni.text!="Pilih Penghuni"&&bs_tujuan.text!="Pilih Tujuan"&&imagefile!=null){
                 addPaket()
+            }else{
+                Toast.makeText(this@TambahPaketActivity, "Isi data yang masih kosong terlebih dahulu!", Toast.LENGTH_SHORT).show()
             }
         }
     }

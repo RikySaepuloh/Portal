@@ -1,12 +1,15 @@
 package com.saku.portalsatpam.fragments
 
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +24,7 @@ import com.mazenrashed.printooth.data.printable.RawPrintable
 import com.mazenrashed.printooth.data.printable.TextPrintable
 import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
+import com.mazenrashed.printooth.utilities.Bluetooth
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import com.saku.portalsatpam.*
@@ -28,6 +32,7 @@ import com.saku.portalsatpam.apihelper.UtilsApi
 import kotlinx.android.synthetic.main.activity_selesai_masuk.view.selesai
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.*
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.view.*
+import kotlinx.coroutines.Runnable
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -71,10 +76,23 @@ class FragmentSelesai : Fragment() {
         Printooth.init(context!!)
         preferences.setPreferences(context!!)
         try {
-            if (Printooth.hasPairedPrinter())
+            if (Printooth.hasPairedPrinter()){
                 printing = Printooth.printer()
+            }
         } catch (e: Exception) {
         }
+
+//        checkBluetoothDevicesConnection()
+        val handler = Handler()
+        var runnable= Runnable { checkBluetoothDevicesConnection() }
+        val delay = 1 * 1000
+
+        handler.postDelayed(Runnable { //do something
+            handler.postDelayed(runnable, delay.toLong())
+        }.also { runnable = it }, delay.toLong())
+
+
+
         if((activity as NeinActivity).penghuni!="-"){
             penghunirumah = (activity as NeinActivity).penghuni.toString()
             image = (activity as NeinActivity).imgPath.toString()
@@ -106,14 +124,30 @@ class FragmentSelesai : Fragment() {
         return myview
     }
 
+    fun checkBluetoothDevicesConnection(){
+        val device: BluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(Printooth.getPairedPrinter()?.address)
+//        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        device.bondState
+        if(device.bondState==BluetoothDevice.BOND_BONDED){
+            myview.scan_bluetooth.text = "Terhubung"
+        }else{
+            myview.scan_bluetooth.text = "Tidak Terhubung"
+        }
 
+//        mBluetoothAdapter.getProfileConnectionState(Printooth.getPairedPrinter()?.address!!.toInt())
+//        if (mBluetoothAdapter.state == BluetoothDevice.BOND_BONDED) {
+//        } else {
+//        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scan_bluetooth.setOnClickListener {
             try {
                 if (Printooth.hasPairedPrinter()) Printooth.removeCurrentPrinter()
-                else startActivityForResult(Intent(context, ScanningActivity::class.java),
+                else
+                    Toast.makeText(context,"Harap tunggu sampai scan selesai",Toast.LENGTH_LONG).show()
+                    startActivityForResult(Intent(context, ScanningActivity::class.java),
                     ScanningActivity.SCANNING_FOR_PRINTER)
             } catch (e: Exception) {
             }
@@ -240,7 +274,7 @@ class FragmentSelesai : Fragment() {
         add(
             TextPrintable.Builder()
             .setText("$tujuan / $keperluan / $penghunirumah")
-            .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+            .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
             .setNewLinesAfter(2)
             .build())
         try {
@@ -269,7 +303,9 @@ class FragmentSelesai : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ScanningActivity.SCANNING_FOR_PRINTER && resultCode == Activity.RESULT_OK)
-            printSomePrintable()
+//            printSomePrintable()
+        checkBluetoothDevicesConnection()
+
     }
 
 //    fun getBitmapFromURL(src: String?): Bitmap? {
@@ -373,7 +409,7 @@ class FragmentSelesai : Fragment() {
 
 private class DownloadImageTask(bmImage: ImageView) :
     AsyncTask<String?, Void?, Bitmap?>() {
-    var bmImage: ImageView = bmImage
+    var mimage: ImageView = bmImage
     override fun doInBackground(vararg params: String?): Bitmap? {
         val urldisplay = params[0]
         var mIcon11: Bitmap? = null
@@ -381,14 +417,14 @@ private class DownloadImageTask(bmImage: ImageView) :
             val my: InputStream = URL(urldisplay).openStream()
             mIcon11 = BitmapFactory.decodeStream(my)
         } catch (e: java.lang.Exception) {
-            Log.e("Error", e.message)
+            Log.e("Error", e.message!!)
             e.printStackTrace()
         }
         return mIcon11
     }
 
     override fun onPostExecute(result: Bitmap?) {
-        bmImage.setImageBitmap(result)
+        mimage.setImageBitmap(result)
     }
 
 }
