@@ -71,6 +71,10 @@ interface ApiService {
     fun satpamAktif(
     ): Call<ResponseBody>
 
+    @GET("logout")
+    fun logout(
+    ): Call<ResponseBody>
+
     @GET("warga")
     fun warga(
         @Query("no_rumah") no_rumah:String

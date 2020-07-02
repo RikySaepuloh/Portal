@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         overridePendingTransition(R.anim.slide_from_right
             , R.anim.slide_to_left
-        );
+        )
         initData()
         menu_masuk.animate()
     menu_masuk.setOnClickListener {
@@ -60,13 +60,54 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
         nav_logout.setOnClickListener {
-            //vibrate(longArrayOf(0, 350))
-            val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-            finishAffinity()
+            logout()
         }
 
     }
+
+    private fun logout() {
+        val apiservice = UtilsApi().getAPIService(this@MainActivity)
+        apiservice?.logout()?.enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(
+                call: Call<ResponseBody?>,
+                response: Response<ResponseBody?>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        try {
+                            preferences.preferencesLogout()
+                            val obj = JSONObject(response.body()!!.string())
+                            Toast.makeText(this@MainActivity, obj.optString("message"), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@MainActivity,LoginActivity::class.java)
+                            startActivity(intent)
+                            finishAffinity()
+                        } catch (e: Exception) {
+
+                        }
+                    }else{
+                        Toast.makeText(this@MainActivity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                } else if(response.code() == 422) {
+                    Toast.makeText(this@MainActivity, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 401){
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    preferences.preferencesLogout()
+                    finish()
+                    Toast.makeText(this@MainActivity, "Sesi telah berakhir, silahkan login kembali", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 403){
+                    Toast.makeText(this@MainActivity, "Unauthorized", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 404){
+                    Toast.makeText(this@MainActivity, "Terjadi kesalahan server", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
     private fun initData() {
         val apiservice = UtilsApi().getAPIService(this@MainActivity)
