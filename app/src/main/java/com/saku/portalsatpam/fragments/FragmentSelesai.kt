@@ -24,7 +24,6 @@ import com.mazenrashed.printooth.data.printable.RawPrintable
 import com.mazenrashed.printooth.data.printable.TextPrintable
 import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
-import com.mazenrashed.printooth.utilities.Bluetooth
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import com.saku.portalsatpam.*
@@ -54,24 +53,21 @@ class FragmentSelesai : Fragment() {
 
     var preferences  = Preferences()
     private lateinit var myview: View
-//    lateinit var dataPasser: DataPasserKeperluan
     private var printing : Printing? = null
-    var penghunirumah : String? = null
-    var tujuan : String? = null
-    var keperluanSingkat : String? = null
-    var keperluan : String? = null
-    var blok:String? = null
-    var noPengunjung : String? = null
-    var noUrut : String? = null
-    var norumah :String? = null
-    var nik :String? = null
-    var image :String? = null
-    var bitmap : Bitmap? = null
+    private var penghunirumah : String? = null
+    private var tujuan : String? = null
+    private var keperluanSingkat : String? = null
+    private var keperluan : String? = null
+    private var blok:String? = null
+    private var noPengunjung : String? = null
+    private var noUrut : String? = null
+    private var norumah :String? = null
+    private var nik :String? = null
+    private var image :String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         myview = inflater.inflate(R.layout.fragment_selesai_masuk, container, false)
         Printooth.init(context!!)
         preferences.setPreferences(context!!)
@@ -82,7 +78,6 @@ class FragmentSelesai : Fragment() {
         } catch (e: Exception) {
         }
 
-//        checkBluetoothDevicesConnection()
         val handler = Handler()
         var runnable= Runnable { checkBluetoothDevicesConnection() }
         val delay = 1 * 1000
@@ -118,26 +113,19 @@ class FragmentSelesai : Fragment() {
                     keperluanSingkat="TM"
                 }
             }
-//            keperluan = (activity as NeinActivity).keperluan.toString()
             nik = (activity as NeinActivity).nikpenghuni.toString()
         }
         return myview
     }
 
-    fun checkBluetoothDevicesConnection(){
+    private fun checkBluetoothDevicesConnection(){
         val device: BluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(Printooth.getPairedPrinter()?.address)
-//        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         device.bondState
         if(device.bondState==BluetoothDevice.BOND_BONDED){
-            myview.scan_bluetooth.text = "Terhubung"
+            myview.scan_bluetooth.text = getString(R.string.terhubung)
         }else{
-            myview.scan_bluetooth.text = "Tidak Terhubung"
+            myview.scan_bluetooth.text = getString(R.string.tidak_terhubung)
         }
-
-//        mBluetoothAdapter.getProfileConnectionState(Printooth.getPairedPrinter()?.address!!.toInt())
-//        if (mBluetoothAdapter.state == BluetoothDevice.BOND_BONDED) {
-//        } else {
-//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -154,7 +142,6 @@ class FragmentSelesai : Fragment() {
         }
         blok = tujuan?.substringBefore("-")
         norumah = tujuan?.substringAfter("-")
-//        val arrBlok = arrayListOf(blok)
         val arrNoRumah : MutableList<RequestBody> = ArrayList()
         arrNoRumah.add(toRequestBody(norumah!!))
         val arrNama : MutableList<RequestBody> = ArrayList()
@@ -164,38 +151,6 @@ class FragmentSelesai : Fragment() {
         val arrBlok: MutableList<RequestBody> = ArrayList()
         arrBlok.add(toRequestBody(blok!!))
         image?.let { initData(arrNik,arrBlok,arrNoRumah,arrNama, it) }
-//        Toast.makeText(context, "$blok $norumah $nik $keperluan",Toast.LENGTH_SHORT).show()
-
-//        Glide.with(context!!).load(url).into(myview.qrcode)
-//        val url =
-//            "https://s3.amazonaws.com/koya-dev-videos/kindness/8da807aa-1e1e-413d-bf9b-5bb084646593/medialibrary/9456621508/videos/1eb78337-d569-41bd-95ad-153d9098de03.png"
-//        val myurl="https://api.simkug.com/api/portal/storage/qrcode-5eec213899ffa.png"
-//        val myr="https://devsai-s3.s3-ap-southeast-1.amazonaws.com/rtrw/qrcode-5eec21394782a.png"
-//        val myr="https://image.freepik.com/free-photo/front-view-chair-room-with-plant-decoration_23-2148560899.jpg"
-//        val mmm="https://cdn.sinarharapan.co/foto/2020/03/19/440-logo_tokopedia_unicorn_startup__tagar-800x450.jpg"
-//        Glide.with(context!!).load(mrrr).placeholder(android.R.drawable.progress_indeterminate_horizontal).error(android.R.drawable.ic_dialog_alert).into(myview.qrcode)
-//        val da = "https://boofcv.org/images/3/35/Example_rendered_qrcode.png"
-//        val da = " https://devsai-s3.s3-ap-southeast-1.amazonaws.com/rtrw/qrcode-5ef2cc969371c.png"
-
-
-//        Glide.with(context!!)
-//            .asBitmap()
-//            .load(da)
-//            .into(object : CustomTarget<Bitmap>(255,255){
-//                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-//                    myview.qrcode.setImageBitmap(resource)
-//                    bitmap = getResizedBitmap(resource,255)
-//                }
-//                override fun onLoadCleared(placeholder: Drawable?) {
-//                    // this is called when imageView is cleared on lifecycle call or for
-//                    // some other reason.
-//                    // if you are referencing the bitmap somewhere else too other than this imageView
-//                    // clear it here as you can no longer have the bitmap
-//                }
-//            })
-
-//        bitmap = (myview.qrcode.drawable as BitmapDrawable).bitmap
-
 
         myview.selesai.setOnClickListener {
              printSomePrintable()
@@ -278,7 +233,7 @@ class FragmentSelesai : Fragment() {
             .setNewLinesAfter(2)
             .build())
         try {
-            val mybitmap = getResizedBitmap((myview.qrcode.drawable as BitmapDrawable).bitmap,255)
+            val mybitmap = 255.getResizedBitmap((myview.qrcode.drawable as BitmapDrawable).bitmap)
             add(ImagePrintable.Builder(mybitmap!!).setAlignment(DefaultPrinter.ALIGNMENT_CENTER).setNewLinesAfter(1).build())
         } catch (e: Exception) {
         }
@@ -288,9 +243,6 @@ class FragmentSelesai : Fragment() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .setNewLinesAfter(1)
                 .build())
-//        val stream = ByteArrayOutputStream()
-//        getBitmapFromURL("https://api.simkug.com/api/portal/storage/qrcode-5eec213899ffa.png")?.compress(Bitmap.CompressFormat.PNG, 90, stream)
-//        val images = stream.toByteArray()
         add(
             TextPrintable.Builder()
                 .setText("==============================")
@@ -321,15 +273,15 @@ class FragmentSelesai : Fragment() {
 //            null
 //        }
 //    }
-    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap? {
+private fun Int.getResizedBitmap(image: Bitmap): Bitmap? {
         var width = image.width
         var height = image.height
         val bitmapRatio = width.toFloat() / height.toFloat()
         if (bitmapRatio > 1) {
-            width = maxSize
+            width = this
             height = (width / bitmapRatio).toInt()
         } else {
-            height = maxSize
+            height = this
             width = (height * bitmapRatio).toInt()
         }
         return Bitmap.createScaledBitmap(image, width, height, true)
@@ -400,7 +352,7 @@ class FragmentSelesai : Fragment() {
         }
     }
 
-    fun toRequestBody(value: String): RequestBody {
+    private fun toRequestBody(value: String): RequestBody {
         return value.toRequestBody("text/plain".toMediaTypeOrNull())
     }
 
