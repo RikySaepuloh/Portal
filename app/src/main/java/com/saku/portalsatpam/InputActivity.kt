@@ -182,7 +182,7 @@ class InputActivity : AppCompatActivity() {
     fun showDialog(activity: Activity?,ktp:String,id_tamu:String) {
         val dialog = Dialog(activity!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(true)
+        dialog.setCancelable(false)
         dialog.setContentView(R.layout.popup_ktp)
         dialog.id_tamu.text = id_tamu
         Glide.with(this@InputActivity).load(ktp).into(dialog.image_popup_ktp)

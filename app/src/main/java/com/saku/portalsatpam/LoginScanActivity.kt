@@ -38,9 +38,11 @@ class LoginScanActivity : AppCompatActivity() {
             params = intent.getStringExtra("params")
         } catch (e: Exception) {
         }
-        val window = window
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        window.statusBarColor = Color.TRANSPARENT
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            val window = window
+            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            window.statusBarColor = Color.TRANSPARENT
+        }
 
         codeScanner = CodeScanner(this, scanner_view)
 

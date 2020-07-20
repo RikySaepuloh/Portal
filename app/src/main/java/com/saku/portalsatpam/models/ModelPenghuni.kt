@@ -22,6 +22,7 @@ data class ModelPenghuni(
 	@field:SerializedName("kode_jk")
 	val kodeJk: String? = null,
 	@field:SerializedName("kode_agama")
-	val kodeAgama: String? = null
-
+	val kodeAgama: String? = null,
+	@field:SerializedName("id_device")
+	val idDevice: String? = null
 	)

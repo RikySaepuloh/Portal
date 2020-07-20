@@ -28,13 +28,16 @@ class NeinActivity : AppCompatActivity(), DataPasserKeperluan {
     var nikpenghuni : String? = null
     var imgPath : String? = null
     var backStatus : Boolean = true
+    var idDevice : String? = null
     private var mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             when {
                 intent.hasExtra("penghuni") -> {
                     penghuni = intent.getStringExtra("penghuni")
                     nikpenghuni = intent.getStringExtra("nik")
-                    //                    Toast.makeText(this@NeinActivity, name, Toast.LENGTH_SHORT).show()
+                    idDevice = intent.getStringExtra("id_device")
+                    Toast.makeText(this@NeinActivity, idDevice, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@NeinActivity, name, Toast.LENGTH_SHORT).show()
 //                    penghuni = name
                     tv_penghuni.text = penghuni
                     resetBG()

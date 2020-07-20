@@ -15,9 +15,8 @@ class SelesaiMasukActivity : AppCompatActivity() {
         setContentView(R.layout.activity_selesai_masuk)
         val data = intent
         val filepath : String? = data.getStringExtra("filepath")
-        Toast.makeText(this,filepath,Toast.LENGTH_LONG).show()
+//        Toast.makeText(this,filepath,Toast.LENGTH_LONG).show()
         selesai.setOnClickListener {
-            //vibrate(longArrayOf(0, 350))
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finishAffinity()

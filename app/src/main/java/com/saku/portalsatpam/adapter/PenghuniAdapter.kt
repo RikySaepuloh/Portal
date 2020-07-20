@@ -35,6 +35,7 @@ class PenghuniAdapter(private val menus: ArrayList<ModelPenghuni>, private val p
             val data = Intent("message_subject_intent")
             data.putExtra("penghuni", menus[position].nama)
             data.putExtra("nik", menus[position].nik)
+            data.putExtra("id_device",menus[position].idDevice)
             LocalBroadcastManager.getInstance(ctx!!).sendBroadcast(data)
             val intent = Intent(ctx, IdentitasActivity::class.java)
             ctx?.startActivity(intent)

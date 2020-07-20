@@ -6,339 +6,342 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.FragmentTujuan">
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/layout_edittext"
-                android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
-                android:layout_height="wrap_content"
-                >
-                <EditText
-                    android:id="@+id/bs_tujuan"
-                    android:background="@drawable/search_background_keyboard"
-                    android:padding="10dp"
-                    android:inputType="text"
-                    android:textColorHint="@android:color/darker_gray"
-                    android:hint="Masukkan alamat tujuan"
-                    android:gravity="center"
-                    android:cursorVisible="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-                <ImageView
-                    android:id="@+id/delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="delete"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_cancel_black_24dp"
-                    />
-                <TextView
-                    android:id="@+id/warning"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:gravity="center"
-                    android:layout_below="@id/bs_tujuan"
-                    android:visibility="invisible"
-                    android:textColor="@android:color/holo_red_light"
-                    android:text="Nomor Rumah yang anda masukkan salah!"/>
-            </RelativeLayout>
-
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
             <LinearLayout
-                android:layout_above="@id/selanjutnya"
-                android:layout_marginBottom="12dp"
                 android:layout_width="wrap_content"
-                android:layout_below="@id/layout_edittext"
+                android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-                <LinearLayout
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/layout_edittext"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="30dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="6">
-
-                    <TextView
-                        android:id="@+id/menu_a"
-                        android:layout_width="50dp"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
+                    >
+                    <EditText
+                        android:id="@+id/bs_tujuan"
+                        android:background="@drawable/search_background_keyboard"
+                        android:padding="10dp"
+                        android:inputType="text"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Masukkan alamat tujuan"
                         android:gravity="center"
-                        android:text="A" />
-
-                    <TextView
-                        android:id="@+id/menu_d"
-                        android:layout_width="50dp"
+                        android:cursorVisible="true"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:gravity="center"
-                        android:text="D" />
-
-                    <TextView
-                        android:layout_width="50dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         />
-
-                    <TextView
-                        android:id="@+id/menu_1"
-                        android:layout_width="50dp"
+                    <ImageView
+                        android:id="@+id/delete"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:gravity="center"
-                        android:text="1" />
-
-
-                    <TextView
-                        android:id="@+id/menu_2"
-                        android:layout_width="50dp"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="2" />
-
-                    <TextView
-                        android:id="@+id/menu_3"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="3" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="6">
-                    <TextView
-                        android:id="@+id/menu_b"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:layout_margin="10dp"
-                        android:gravity="center"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:text="B" />
-
-
-                    <TextView
-                        android:id="@+id/menu_e"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:gravity="center"
-                        android:text="E" />
-
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_margin="10dp"
+                        android:contentDescription="delete"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_cancel_black_24dp"
                         />
                     <TextView
-                        android:id="@+id/menu_4"
-                        android:layout_width="50dp"
+                        android:id="@+id/warning"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:background="@drawable/selector_keyboard_item"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="6dp"
                         android:gravity="center"
-                        android:text="4" />
-
-                    <TextView
-                        android:id="@+id/menu_5"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:gravity="center"
-
-                        android:text="5" />
-
-                    <TextView
-                        android:id="@+id/menu_6"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:gravity="center"
-                        android:text="6" />
-                </LinearLayout>
+                        android:layout_below="@id/bs_tujuan"
+                        android:visibility="invisible"
+                        android:textColor="@android:color/holo_red_light"
+                        android:text="Nomor Rumah yang anda masukkan salah!"/>
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="6">
-
-                    <TextView
-                        android:id="@+id/menu_c"
-                        android:layout_width="50dp"
+                    android:layout_above="@id/selanjutnya"
+                    android:layout_marginBottom="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/layout_edittext"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="C" />
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
 
-                    <TextView
-                        android:layout_width="50dp"
+                        <TextView
+                            android:id="@+id/menu_a"
+                            android:layout_width="50dp"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="A" />
+
+                        <TextView
+                            android:id="@+id/menu_d"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:gravity="center"
+                            android:text="D" />
+
+                        <TextView
+                            android:layout_width="50dp"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/menu_1"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:gravity="center"
+                            android:text="1" />
+
+
+                        <TextView
+                            android:id="@+id/menu_2"
+                            android:layout_width="50dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_height="wrap_content"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="2" />
+
+                        <TextView
+                            android:id="@+id/menu_3"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="3" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+                        <TextView
+                            android:id="@+id/menu_b"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_margin="10dp"
+                            android:gravity="center"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:text="B" />
 
 
-                        android:gravity="center"/>
+                        <TextView
+                            android:id="@+id/menu_e"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:gravity="center"
+                            android:text="E" />
 
-                    <TextView
-                        android:layout_width="50dp"
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+
+                            android:layout_margin="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/menu_4"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:gravity="center"
+                            android:text="4" />
+
+                        <TextView
+                            android:id="@+id/menu_5"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:gravity="center"
+
+                            android:text="5" />
+
+                        <TextView
+                            android:id="@+id/menu_6"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:gravity="center"
+                            android:text="6" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
 
-                        android:layout_margin="10dp"
+                        <TextView
+                            android:id="@+id/menu_c"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="C" />
 
-                        android:gravity="center" />
-                    <TextView
-                        android:id="@+id/menu_7"
-                        android:layout_width="50dp"
-                        android:background="@drawable/selector_keyboard_item"
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+
+
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+
+                            android:layout_margin="10dp"
+
+                            android:gravity="center" />
+                        <TextView
+                            android:id="@+id/menu_7"
+                            android:layout_width="50dp"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="7" />
+
+                        <TextView
+                            android:id="@+id/menu_8"
+                            android:layout_width="50dp"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_margin="10dp"
+                            android:layout_height="wrap_content"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:text="8" />
+
+                        <TextView
+                            android:id="@+id/menu_9"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_width="50dp"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:layout_margin="10dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="9" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="7" />
+                        android:orientation="horizontal"
+                        android:weightSum="6">
 
-                    <TextView
-                        android:id="@+id/menu_8"
-                        android:layout_width="50dp"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:layout_margin="10dp"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="8" />
+                        <TextView
+                            android:layout_margin="10dp"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" />
 
-                    <TextView
-                        android:id="@+id/menu_9"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:layout_width="50dp"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:layout_margin="10dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="9" />
+                        <TextView
+                            android:layout_margin="10dp"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" />
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            />
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/menu_0"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:layout_margin="10dp"
+                            android:gravity="center"
+                            android:text="0" />
+
+                        <TextView
+                            android:id="@+id/menu_slash"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:background="@drawable/selector_keyboard_item"
+                            android:layout_margin="10dp"
+                            android:gravity="center"
+                            android:text="-" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/selanjutnya"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="6">
-
-                    <TextView
-                        android:layout_margin="10dp"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center" />
-
-                    <TextView
-                        android:layout_margin="10dp"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center" />
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        />
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/menu_0"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:layout_margin="10dp"
-                        android:gravity="center"
-                        android:text="0" />
-
-                    <TextView
-                        android:id="@+id/menu_slash"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:clickable="true"
-                        android:background="@drawable/selector_keyboard_item"
-                        android:layout_margin="10dp"
-                        android:gravity="center"
-                        android:text="-" />
-                </LinearLayout>
+                    android:background="@drawable/selector_selanjutnya"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="#000000" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/selanjutnya"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:background="@drawable/selector_selanjutnya"
-                android:layout_marginBottom="12dp"
-                android:textColor="#000000" />
-        </LinearLayout>
-
-    </RelativeLayout>
-
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.gson.Gson
 import com.mazenrashed.printooth.Printooth
 import com.mazenrashed.printooth.data.printable.ImagePrintable
 import com.mazenrashed.printooth.data.printable.Printable
@@ -27,11 +28,17 @@ import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import com.saku.portalsatpam.*
+import com.saku.portalsatpam.apihelper.PushNotification
+import com.saku.portalsatpam.apihelper.RetrofitInstance
 import com.saku.portalsatpam.apihelper.UtilsApi
 import kotlinx.android.synthetic.main.activity_selesai_masuk.view.selesai
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.*
 import kotlinx.android.synthetic.main.fragment_selesai_masuk.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.launch
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -49,7 +56,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
+val JSON: MediaType? = "application/json; charset=utf-8".toMediaTypeOrNull()
+
 class FragmentSelesai : Fragment() {
+    val TAG = "MainActivity"
 
     var preferences  = Preferences()
     private lateinit var myview: View
@@ -64,6 +74,7 @@ class FragmentSelesai : Fragment() {
     private var norumah :String? = null
     private var nik :String? = null
     private var image :String? = null
+    private var idDevice:String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,6 +82,7 @@ class FragmentSelesai : Fragment() {
         myview = inflater.inflate(R.layout.fragment_selesai_masuk, container, false)
         Printooth.init(context!!)
         preferences.setPreferences(context!!)
+
         try {
             if (Printooth.hasPairedPrinter()){
                 printing = Printooth.printer()
@@ -82,11 +94,23 @@ class FragmentSelesai : Fragment() {
         var runnable= Runnable { checkBluetoothDevicesConnection() }
         val delay = 1 * 1000
 
+        if((activity as NeinActivity).penghuni!="-"){
+            idDevice = (activity as NeinActivity).idDevice.toString()
+        }
+//        idDevice?.let { sendNotificationToUser(it) }
+
         handler.postDelayed(Runnable { //do something
             handler.postDelayed(runnable, delay.toLong())
         }.also { runnable = it }, delay.toLong())
 
 
+//        PushNotification(
+//            NotificationData("Pemberitahuan Warga","Paket sedang menuju ke rumah. \nTolong siapkan nomor bukti."),
+//            idDevice!!
+//
+//        ).also {
+//            sendNotif(it)
+//        }
 
         if((activity as NeinActivity).penghuni!="-"){
             penghunirumah = (activity as NeinActivity).penghuni.toString()
@@ -115,8 +139,11 @@ class FragmentSelesai : Fragment() {
             }
             nik = (activity as NeinActivity).nikpenghuni.toString()
         }
+        sendNotification(idDevice!!)
+
         return myview
     }
+
 
     private fun checkBluetoothDevicesConnection(){
         val device: BluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(Printooth.getPairedPrinter()?.address)
@@ -180,6 +207,21 @@ class FragmentSelesai : Fragment() {
                 Toast.makeText(context, "Message: $message", Toast.LENGTH_SHORT).show()
             }
 
+        }
+    }
+
+    private fun sendNotif(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if (response.isSuccessful){
+
+//                Log.d("MAMAMAMAMA","Response:"+ response.body()!!.string())
+                Log.d(TAG,"Response: ${Gson().toJson(response)}")
+            }else{
+                Log.d(TAG,response.errorBody().toString())
+            }
+        } catch (e: Exception) {
+                Log.e(TAG,e.toString())
         }
     }
 
@@ -260,20 +302,7 @@ class FragmentSelesai : Fragment() {
 
     }
 
-//    fun getBitmapFromURL(src: String?): Bitmap? {
-//        return try {
-//            val url = URL(src)
-//            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-//            connection.doInput = true
-//            connection.connect()
-//            val input: InputStream = connection.inputStream
-//            BitmapFactory.decodeStream(input)
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//            null
-//        }
-//    }
-private fun Int.getResizedBitmap(image: Bitmap): Bitmap? {
+    private fun Int.getResizedBitmap(image: Bitmap): Bitmap? {
         var width = image.width
         var height = image.height
         val bitmapRatio = width.toFloat() / height.toFloat()
@@ -353,8 +382,81 @@ private fun Int.getResizedBitmap(image: Bitmap): Bitmap? {
     }
 
     private fun toRequestBody(value: String): RequestBody {
-        return value.toRequestBody("text/plain".toMediaTypeOrNull())
+        return value.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
     }
+
+//    private fun sendNotification() = CoroutineScope(Dispatchers.IO).launch {
+
+    private fun sendNotification(idDevice:String) {
+
+        val title : String = "Informasi dari Portal Satpam"
+        val message : String = "$keperluan sedang dalam perjalanan menuju $penghunirumah.\n Untuk penerima $keperluan bersiap-siap."
+        val data = JSONObject()
+        data.put("title",title)
+        data.put("message",message)
+
+        val token = ArrayList<String>()
+        token.add(idDevice)
+
+        val apiservice = UtilsApi().getAPIService(context!!)
+            apiservice?.sendNotif(idDevice,title,message)?.enqueue(object : Callback<ResponseBody?> {
+                override fun onResponse(
+                    call: Call<ResponseBody?>,
+                    response: Response<ResponseBody?>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body() != null) {
+                            try {
+                                val obj = JSONObject(response.body()!!.string())
+                                Log.e("Response:", obj.toString())
+//                                if(obj.optString("status").isNotEmpty()&&obj.optString("status")=="false"){
+//                                    Toast.makeText(context,"Terjadi kesalahan notif",Toast.LENGTH_SHORT).show()
+//                                }
+
+                            } catch (e: Exception) {
+
+                            }
+                        }else{
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    } else if(response.code() == 422) {
+                        Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    } else if(response.code() == 401){
+                        val intent = Intent(context, LoginActivity::class.java)
+                        startActivity(intent)
+                        preferences.preferencesLogout()
+                        activity?.finish()
+                        Toast.makeText(context, "Sesi telah berakhir, silahkan login kembali", Toast.LENGTH_SHORT).show()
+                    } else if(response.code() == 403){
+                        Toast.makeText(context, "Unauthorized", Toast.LENGTH_SHORT).show()
+                    } else if(response.code() == 404){
+                        Toast.makeText(context, "Terjadi kesalahan server", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
+                }
+            })
+
+
+//        try {
+//            val instance = FCMInstance
+//            instance.setContext(context!!)
+//            val response = instance.api.sendNotif("notification")
+//            if(response.isSuccessful){
+//                Log.d(TAG,"Response: ${Gson().toJson(response)}")
+//            }else{
+//                Log.d(TAG,response.errorBody().toString())
+//            }
+//        } catch (e: Exception) {
+//            Log.d(TAG,e.toString())
+//        }
+    }
+
+    private fun createJsonRequestBody(vararg params: Pair<String, String>) =
+        JSONObject(mapOf(*params)).toString()
+            .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
 }
 

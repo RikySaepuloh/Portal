@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         )
 
 
+
 //        toggle.setHomeAsUpIndicator(R.drawable.ic_hamburger)
 //        toggle.isDrawerIndicatorEnabled = true;
         drawer_layout.addDrawerListener(toggle)
@@ -154,6 +155,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
         })
     }
+
+
+
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

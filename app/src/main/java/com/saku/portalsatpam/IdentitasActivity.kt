@@ -26,9 +26,12 @@ class IdentitasActivity : AppCompatActivity() {
         if(intent.hasExtra("paket")){
             judul.text = "Paket"
         }
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+
         val window = window
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window.statusBarColor = Color.TRANSPARENT
+        }
         camera.setLifecycleOwner(this)
 //        codeScanner = CodeScanner(this, scanner_view)
 //
@@ -102,7 +105,7 @@ class IdentitasActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
                 if(intent.hasExtra("tunggu")){
-                    Toast.makeText(this@IdentitasActivity,"Hey",Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this@IdentitasActivity,"Hey",Toast.LENGTH_LONG).show()
                     val intent = Intent(this@IdentitasActivity,SelesaiMasukActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
@@ -114,7 +117,7 @@ class IdentitasActivity : AppCompatActivity() {
                     LocalBroadcastManager.getInstance(this@IdentitasActivity).sendBroadcast(myintentdata)
                     finish()
                 } else{
-                    Toast.makeText(this@IdentitasActivity,"Dasar",Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this@IdentitasActivity,"Dasar",Toast.LENGTH_LONG).show()
                     val myintentdata = Intent("message_subject_intent")
                     myintentdata.putExtra("imagefile", file.path)
                     LocalBroadcastManager.getInstance(this@IdentitasActivity).sendBroadcast(myintentdata)
