@@ -15,18 +15,6 @@ Aplikasi berbasis Android Tablet Device dengan fungsionalitas untuk mencatat kun
 [Hdodenhof CircleImageView](https://github.com/hdodenhof/CircleImageView)
 
 
-## Version Guides
-
-Version 1.0
-
-     - User login menggunakan nomor telepon (Non-API)
-
-Version 2.0
-
-     - User login menggunakan barcode (Non-API)
-     
-     - Perubahan alur layout menjadi lebih user-friendly
-
 ## Developer
 
 *Code : Riky Saepuloh*
